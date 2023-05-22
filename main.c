@@ -255,6 +255,7 @@ void main()
 	int m=0;
 	int signalGroup=0, signalOrder=0;
 	u8 alarmState=0;
+	u8 testSend[] = {1,2};
 	
 	T0_Init();						//定时器0初始化
 	//Baud rate:125K{0x3F,0x40,0x72,0x00},250K{0x1F,0x40,0x72,0x00},500K{0x0F,0x40,0x72,0x00},1M{0x07,0x40,0x72,0x00}
@@ -269,9 +270,13 @@ void main()
 	StartTimer(1,100);
 	StartTimer(2,2000);
 	//Rtc_set_time(date);
+	
 
+	
 	while(1){
 		
+		CanTx(0x070,0,1, testSend); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+			
 		if(GetTimeOutFlag(0))
 		{
 			canRxTreat();           //receive example
@@ -624,6 +629,8 @@ void main()
 			}
 		pageTextWriteFlagA = 0;
 		}
+		
+
 	}
 }
 
