@@ -269,14 +269,21 @@ void main()
 	StartTimer(0,50);
 	StartTimer(1,100);
 	StartTimer(2,2000);
+	StartTimer(3,1000);
 	//Rtc_set_time(date);
 	
 
 	
 	while(1){
 		
-		CanTx(0x070,0,1, testSend); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
-			
+		if(GetTimeOutFlag(3))
+		{
+			CanTx(0x050,0,1, testSend); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+			StartTimer(3,1000);
+		}
+		
+		
+	
 		if(GetTimeOutFlag(0))
 		{
 			canRxTreat();           //receive example
