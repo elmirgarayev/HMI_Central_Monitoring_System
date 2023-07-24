@@ -426,7 +426,7 @@ void main()
 					if(i<dynamicPageLimit){ //kanal limiti yoxlanilir
 						
 						if(statusOrder[countTheChannels][i+pageState*8]==0){// OK ALARM yazir
-							if(alarmOn[i][i+pageState*8] == 1){	//eger alarm olubsa
+							if(alarmOn[pageState][i+pageState*8] == 1){	//eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+18,4);	// ALARM 
 								write_dgus_vp((0x10A8+i*4),status[0]+9,4);	// ALARM 
 							}
@@ -436,7 +436,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==1){// OK ALARM yazir
-							if(alarmOn[i][i+pageState*8] == 1){	//eger alarm olubsa
+							if(alarmOn[pageState][i+pageState*8] == 1){	//eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+9,4);	//OK
 								write_dgus_vp((0x10A8+i*4),status[0],4);	//OK
 							}
@@ -446,7 +446,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==2){
-							if(alarmOn[i][i+pageState*8] == 1){	//eger alarm olubsa
+							if(alarmOn[pageState][i+pageState*8] == 1){	//eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0],4);	// RAN
 								write_dgus_vp((0x10A8+i*4),status[0]+27,4);	// RAN
 							}
@@ -456,7 +456,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==3){
-							if(alarmOn[i][i+pageState*8] == 1){	//eger alarm olubsa
+							if(alarmOn[pageState][i+pageState*8] == 1){	//eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+36,4); // STOP //onuda unutmaki bezi run stop siqnallarinin yeri deyisikdi
 								write_dgus_vp((0x10A8+i*4),status[0]+18,4); // STOP //onuda unutmaki bezi run stop siqnallarinin yeri deyisikdi
 							}
@@ -466,7 +466,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==4){
-							if(alarmOn[i][i+pageState*8] == 1){ //eger alarm olubsa
+							if(alarmOn[pageState][i+pageState*8] == 1){ //eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+27,4);	// HIGH
 								write_dgus_vp((0x10A8+i*4),status[0]+45,4);	// HIGH
 							}
@@ -476,7 +476,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==5){
-							if(alarmOn[i][i+pageState*8] == 1){ //eger alarm olubsa
+							if(alarmOn[pageState][i+pageState*8] == 1){ //eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+63,4);	// LOW
 								write_dgus_vp((0x10A8+i*4),status[0]+36,4);	// LOW
 							}
