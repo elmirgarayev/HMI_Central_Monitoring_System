@@ -48,18 +48,18 @@ u8 analogIDsOrder[15][68]  = 	{{0, 0, 0, 0}, //ME Shutdown - PS
 u8 statusOrder[15][68]  = 		{{0, 0, 0, 2}, //ME Shutdown - PS
 															 {0, 0}, //meSlowdownPs
 															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //meAlarmPs
-															 {0, 0, 0, 2}, //meShutdownSb
+															 {0, 0, 0, 3}, //meShutdownSb
 															 {0, 0}, //meSlowdownSb
 															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //meAlarmSb
-															 {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0}, //cppGbAlarmPs
-															 {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0}, //cppGbAlarmSb
-															 {2, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}, //generatorsAlarm
+															 {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}, //cppGbAlarmPs
+															 {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}, //cppGbAlarmSb
+															 {3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3}, //generatorsAlarm
 															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, //thrustersAlarms
 															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //steeringGearAlarm
 															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //msbEsbAlarm
 															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //wtdHatchesAlarm
 															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //tanksBilgesAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0}}; //machnineryAlarm			
+															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 4, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0}}; //machnineryAlarm			
 
 																 
 u8 countTheChannels = 0;	
@@ -278,7 +278,7 @@ void main()
 		
 		if(GetTimeOutFlag(3))
 		{
-			CanTx(0x050,0,1, testSend); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+			CanTx(0x054,0,1, testSend); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
 			StartTimer(3,1000);
 		}
 		
@@ -426,7 +426,7 @@ void main()
 					if(i<dynamicPageLimit){ //kanal limiti yoxlanilir
 						
 						if(statusOrder[countTheChannels][i+pageState*8]==0){// OK ALARM yazir
-							if(alarmOn[pageState][i+pageState*8] == 1){	//eger alarm olubsa
+							if(alarmOn[channelState][i+pageState*8] == 1){	//eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+18,4);	// ALARM 
 								write_dgus_vp((0x10A8+i*4),status[0]+9,4);	// ALARM 
 							}
@@ -436,7 +436,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==1){// OK ALARM yazir
-							if(alarmOn[pageState][i+pageState*8] == 1){	//eger alarm olubsa
+							if(alarmOn[channelState][i+pageState*8] == 1){	//eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+9,4);	//OK
 								write_dgus_vp((0x10A8+i*4),status[0],4);	//OK
 							}
@@ -446,7 +446,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==2){
-							if(alarmOn[pageState][i+pageState*8] == 1){	//eger alarm olubsa
+							if(alarmOn[channelState][i+pageState*8] == 1){	//eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0],4);	// RAN
 								write_dgus_vp((0x10A8+i*4),status[0]+27,4);	// RAN
 							}
@@ -456,7 +456,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==3){
-							if(alarmOn[pageState][i+pageState*8] == 1){	//eger alarm olubsa
+							if(alarmOn[channelState][i+pageState*8] == 1){	//eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+36,4); // STOP //onuda unutmaki bezi run stop siqnallarinin yeri deyisikdi
 								write_dgus_vp((0x10A8+i*4),status[0]+18,4); // STOP //onuda unutmaki bezi run stop siqnallarinin yeri deyisikdi
 							}
@@ -466,7 +466,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==4){
-							if(alarmOn[pageState][i+pageState*8] == 1){ //eger alarm olubsa
+							if(alarmOn[channelState][i+pageState*8] == 1){ //eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+27,4);	// HIGH
 								write_dgus_vp((0x10A8+i*4),status[0]+45,4);	// HIGH
 							}
@@ -476,7 +476,7 @@ void main()
 							}
 						}
 						else if(statusOrder[countTheChannels][i+pageState*8]==5){
-							if(alarmOn[pageState][i+pageState*8] == 1){ //eger alarm olubsa
+							if(alarmOn[channelState][i+pageState*8] == 1){ //eger alarm olubsa
 								//write_dgus_vp((0x10A8+i*4),status[0]+63,4);	// LOW
 								write_dgus_vp((0x10A8+i*4),status[0]+36,4);	// LOW
 							}
