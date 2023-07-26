@@ -506,7 +506,7 @@ void main()
 			
 		write_dgus_vp(0x15B4,text_page[pageStateA],4);
 			
-		if ((stationAlarm[0] == 3) || (stationAlarm[1] == 3) || (stationAlarm[2] == 3) || (stationAlarm[3] == 3)){
+		if ((stationAlarm[0] == 1) || (stationAlarm[1] == 1) || (stationAlarm[2] == 1) || (stationAlarm[3] == 1)){
 			alarmState = 0;
 		}
 		
