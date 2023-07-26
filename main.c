@@ -507,6 +507,9 @@ void main()
 		write_dgus_vp(0x15B4,text_page[pageStateA],4);
 			
 		if ((stationAlarm[0] == 1) || (stationAlarm[1] == 1) || (stationAlarm[2] == 1) || (stationAlarm[3] == 1)){
+			alarmState = 1;
+		}
+		else{
 			alarmState = 0;
 		}
 		
@@ -518,7 +521,7 @@ void main()
 							rdtime();	
 							read_dgus_vp(0x0010,&dateFromRtc[0],4);					//saati oxumagi yoxla
 							
-							alarmState = 1;
+							//alarmState = 1;
 							// zamanlari oxu
 							dateFromRtcDisplay[0] = dateFromRtc[0];
 							dateFromRtcDisplay[1] = dateFromRtc[1];
