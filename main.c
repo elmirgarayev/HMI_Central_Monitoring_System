@@ -77,6 +77,7 @@ int alarmNumber[100] = 0;
 float group13[] 		= {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6.573,6.573,1.8,1.8,1.2,5.833,5.833,1.142,1.142,1.2,2,2,3,3,3.8,1.5,2.3,1.2,1.2,1,2,2,4.4,4.133,6.8,6.8,4.852,4.852,6.8,6.8,6.8,5.9,5.9,5.857,5.857,2.9,2.9}; //56
 float group13_100[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100}; //56
 
+	
 void main()
 {
 	
@@ -417,7 +418,12 @@ void main()
 				}
 				for(i=0;i<8;i++){	//8 eded signal ucun loop
 					if((analogIDsOrder[countTheChannels][i+pageState*8] == 1) && (i<dynamicPageLimit)){//bura hansilarinin analog oldugun gosterir ve eger limiti kecmeyibse
-						sprintf(str[i+pageState*8],"%.2f",group[countTheChannels][i+pageState*8]);//bura analoga cevirir
+						if(countTheChannels == 13){
+							sprintf(str[i+pageState*8],"%.2f",(group[countTheChannels][i+pageState*8] / group13[i+pageState*8] * group13_100[i+pageState*8]));//bura analoga cevirir
+						}
+						else{
+							sprintf(str[i+pageState*8],"%.2f",group[countTheChannels][i+pageState*8]);//bura analoga cevirir
+						}
 						write_dgus_vp((0x1088+i*4),str[i+pageState*8],4);	//yazdir
 					}
 					else{
