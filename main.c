@@ -13,7 +13,7 @@ void system_paly_audio(u8 audiotime)
 	write_dgus_vp(0xA0,audio_cmd,1);
 }
 //stanisyalarin id lerin kenara yazmasi ucun bunu eledim
-int textChannelsID[15][68]  = {{1065, 1066, 1067, 1068}, //ME Shutdown - PS
+u16 textChannelsID[15][68]  = {{1065, 1066, 1067, 1068}, //ME Shutdown - PS
 															 {1076, 1077}, //meSlowdownPs
 															 {1069, 1070, 1071, 1072, 1017, 1018, 1006, 1021, 1022, 1010, 1023, 1074, 1075, 1078}, //meAlarmPs
 															 {2066, 2067, 2068, 2069}, //meShutdownSb
@@ -67,7 +67,7 @@ u8 dynamicPageLimit = 0;
 u16 channelNumbers[15] = {10544, 8497, 16434, 9011, 9268, 9525, 24118, 9783, 10808, 10297, 16737, 16994, 17251, 17508, 17765};														 
 u8 alarmOnBefore[15][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable
 																 
-int stationAlarmArray[100];
+u16 stationAlarmArray[100];
 															 
 int signalChannel[100] = 0;
 int signalNumber[100] = 0;
@@ -541,24 +541,22 @@ void main()
 							
 							for(alarmOrder=98;alarmOrder>0;alarmOrder--){			//bu setir alarm seyfesindeki csxan alarmlari surusdurur qeydedir
 								stationAlarmArray[alarmOrder+1] 	= stationAlarmArray[alarmOrder];
-								signalChannel[alarmOrder+1] 			= signalChannel[alarmOrder];
-								//signalNu[alarmOrder+1] 					= signalNu[alarmOrder];
-								alarmNumber[alarmOrder+1] 				= alarmNumber[alarmOrder];
-								memYear[alarmOrder+1]							= memYear[alarmOrder];
-								memMonth[alarmOrder+1]						= memMonth[alarmOrder];
-								memDay[alarmOrder+1]							= memDay[alarmOrder];
-								memHour[alarmOrder+1]							= memHour[alarmOrder];
-								memMin[alarmOrder+1]							= memMin[alarmOrder];
+								signalChannel[alarmOrder+1] 			= signalChannel[alarmOrder];	//hangi kanal oldugu
+								alarmNumber[alarmOrder+1] 				= alarmNumber[alarmOrder];	//hansi signal oldugu
+								memYear[alarmOrder+1]							= memYear[alarmOrder];		//il
+								memMonth[alarmOrder+1]						= memMonth[alarmOrder];		//ay
+								memDay[alarmOrder+1]							= memDay[alarmOrder];			//gun
+								memHour[alarmOrder+1]							= memHour[alarmOrder];		//saat
+								memMin[alarmOrder+1]							= memMin[alarmOrder];			//deqiqe
 							}
+							
+							Nor_Flash_write(0x1000, data, length);
 							
 							stationAlarmArray[1] = stationAlarmArray[0];	
 							stationAlarmArray[0] = textChannelsID[signalGroup][signalOrder]; 	//sirali olan id hansidi goturub getirib yazir bu variableye.
 							
 							signalChannel[1] = signalChannel[0];
 							signalChannel[0] = signalGroup; // hansi group oldugun goturub yazir bura
-							
-							//signalNu[1] = signalNu[0];
-							//signalNu[0] = signalOrder;		//groupdaki hansi signal oldugun bura yazir
 							
 							
 							alarmNumber[1] = alarmNumber[0];
