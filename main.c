@@ -33,7 +33,9 @@ u16 machnineryAlarm[]		=	{1061, 1062, 1063, 1064, 1001, 2065, 2049, 2051, 3065, 
 //ardicil duzulmesi
 u16* textChannelsID[]	=	{meShutdownPs, meSlowdownPs, meAlarmPs, meShutdownSb, meSlowdownSb, meAlarmSb, cppGbAlarmPs, cppGbAlarmSb, generatorsAlarm, thrustersAlarms, steeringGearAlarm, msbEsbAlarm, wtdHatchesAlarm, tanksBilgesAlarm, machnineryAlarm};
 
-size_t textChannelsLengths[] = {sizeof(meShutdownPs) / sizeof(u16), sizeof(meSlowdownPs) / sizeof(u16), /* ... other lengths ... */};
+size_t textChannelsLengths[] = {sizeof(meShutdownPs) / sizeof(u16), sizeof(meSlowdownPs) / sizeof(u16), sizeof(meAlarmPs) / sizeof(u16), sizeof(meShutdownSb) / sizeof(u16), sizeof(meSlowdownSb) / sizeof(u16), sizeof(meAlarmSb) / sizeof(u16), sizeof(cppGbAlarmPs) / sizeof(u16), sizeof(cppGbAlarmSb) / sizeof(u16), sizeof(generatorsAlarm) / sizeof(u16), sizeof(thrustersAlarms) / sizeof(u16), sizeof(steeringGearAlarm) / sizeof(u16), sizeof(msbEsbAlarm) / sizeof(u16), sizeof(wtdHatchesAlarm) / sizeof(u16), sizeof(tanksBilgesAlarm) / sizeof(u16), sizeof(machnineryAlarm) / sizeof(u16)};
+// usteki bunun yerine kececek
+	u8 textChannelsLenght[] = {4, 2, 14, 4, 2, 14, 13, 13, 32, 27, 17, 14, 10, 56, 68};
 
 u8 analogIDsOrder[15][68]  = 	{{0, 0, 0, 0}, //ME Shutdown - PS
 															 {0, 0}, //meSlowdownPs
@@ -143,41 +145,41 @@ void main()
 		
 		//NORICAN System
 	
-	char *textChannels[15][68]={{"ME Overspeed Trip     PS","ME L.O.P Low Trip     PS","ME Emerg. Stop        PS","ME Running            PS", "                        "},
-															{"ME F.W Press.Low SLD  PS","ME HT Wat.Tmp.Hi SLD  PS"},
-															{"ME Fuel Oil Leakage   PS","ME F.O Diff.Prs.Hi    PS","ME L.O Diff.Prs.Hi    PS","ME T/C L.O.P Low      PS","ME F.O Press.Low      PS","ME L.O Press.Low      PS","ME L.O Temp.Hi        PS","ME Speed              PS",
-															 "ME F.W Press.Low      PS","ME HT Wat.Tmp.Hi      PS","ME Sea Water Prs. Low PS","ME Ctrl .AC Pow.Fail  PS","ME Ctrl .DC Pow.Fail  PS","ME Overload           PS"},
-															{"ME Overspeed Trip     SB","ME L.O.P Low Trip     SB","ME Emerg. Stop        SB","ME Running            SB"},
-															{"ME F.W Press.Low SLD  SB","ME HT Wat.Tmp.Hi SLD  SB"},
-															{"ME Fuel Oil Leakage   SB","ME F.O Diff.Prs.Hi    SB","ME L.O Diff.Prs.Hi    SB","ME T/C L.O.P Low      SB","ME F.O Press.Low      SB","ME L.O Press.Low      SB","ME L.O Temp.Hi        SB","ME Speed              SB",
-															 "ME F.W Press.Low      SB","ME HT Wat.Tmp.Hi      SB","ME Sea Water Prs. Low SB","ME Ctrl .AC Pow.Fail  SB","ME Ctrl .DC Pow.Fail  SB","ME Overload           SB"},
-															{"CPP Pump Auto Start   PS","CPP Hyd.Oil Temp.Hi   PS","CPP S.Tube Gra.Tk.Lo  PS","CPP S.Tube Cir.Tk.Lo  PS","CPP S.Tube Br.Tmp Hi  PS","CPP Hyd.Oil Prs.Low   PS","CPP Hyd.Oil Prs.Hi    PS","GB L.O.P Low SLD      PS",
-															 "GB L.O.P Low          PS","GB L.O.P Low Trip     PS","CPP #1 Pump Run       PS","CPP #2 Pump Run       PS","GB L.O Temp.Hi        PS"},
-															{"CPP Pump Auto Start   SB","CPP Hyd.Oil Temp.Hi   SB","CPP S.Tube Gra.Tk.Lo  SB","CPP S.Tube Cir.Tk.Lo  SB","CPP S.Tube Br.Tmp Hi  SB","CPP Hyd.Oil Prs.Low   SB","CPP Hyd.Oil Prs.Hi    SB","GB L.O.P Low SLD      SB",
-															 "GB L.O.P Low          SB","GB L.O.P Low Trip     SB","CPP #1 Pump Run       SB","CPP #2 Pump Run       SB","GB L.O Temp.Hi        SB"},
-															{"DG Running            PS","DG Overspeed Trip     PS","DG L.O.P Low Trip     PS","DG F.W Temp.Hi Trip   PS","DG Emerg.Stop         PS","DG Fail To Start      PS","DG F.O Leakage        PS","DG Water Lvl.Low      PS",
+	const char *textGroup1[]	=	{"ME Overspeed Trip     PS","ME L.O.P Low Trip     PS","ME Emerg. Stop        PS","ME Running            PS", "                        "};
+	const char *textGroup2[]	=	{"ME F.W Press.Low SLD  PS","ME HT Wat.Tmp.Hi SLD  PS"};
+	const char *textGroup3[]	=	{"ME Fuel Oil Leakage   PS","ME F.O Diff.Prs.Hi    PS","ME L.O Diff.Prs.Hi    PS","ME T/C L.O.P Low      PS","ME F.O Press.Low      PS","ME L.O Press.Low      PS","ME L.O Temp.Hi        PS","ME Speed              PS",
+															 "ME F.W Press.Low      PS","ME HT Wat.Tmp.Hi      PS","ME Sea Water Prs. Low PS","ME Ctrl .AC Pow.Fail  PS","ME Ctrl .DC Pow.Fail  PS","ME Overload           PS"};
+	const char *textGroup4[]	=	{"ME Overspeed Trip     SB","ME L.O.P Low Trip     SB","ME Emerg. Stop        SB","ME Running            SB"};
+	const char *textGroup5[]	=	{"ME F.W Press.Low SLD  SB","ME HT Wat.Tmp.Hi SLD  SB"};
+	const char *textGroup6[]	=	{"ME Fuel Oil Leakage   SB","ME F.O Diff.Prs.Hi    SB","ME L.O Diff.Prs.Hi    SB","ME T/C L.O.P Low      SB","ME F.O Press.Low      SB","ME L.O Press.Low      SB","ME L.O Temp.Hi        SB","ME Speed              SB",
+															 "ME F.W Press.Low      SB","ME HT Wat.Tmp.Hi      SB","ME Sea Water Prs. Low SB","ME Ctrl .AC Pow.Fail  SB","ME Ctrl .DC Pow.Fail  SB","ME Overload           SB"};
+	const char *textGroup7[]	=	{"CPP Pump Auto Start   PS","CPP Hyd.Oil Temp.Hi   PS","CPP S.Tube Gra.Tk.Lo  PS","CPP S.Tube Cir.Tk.Lo  PS","CPP S.Tube Br.Tmp Hi  PS","CPP Hyd.Oil Prs.Low   PS","CPP Hyd.Oil Prs.Hi    PS","GB L.O.P Low SLD      PS",
+															 "GB L.O.P Low          PS","GB L.O.P Low Trip     PS","CPP #1 Pump Run       PS","CPP #2 Pump Run       PS","GB L.O Temp.Hi        PS"};
+	const char *textGroup8[]	=	{"CPP Pump Auto Start   SB","CPP Hyd.Oil Temp.Hi   SB","CPP S.Tube Gra.Tk.Lo  SB","CPP S.Tube Cir.Tk.Lo  SB","CPP S.Tube Br.Tmp Hi  SB","CPP Hyd.Oil Prs.Low   SB","CPP Hyd.Oil Prs.Hi    SB","GB L.O.P Low SLD      SB",
+															 "GB L.O.P Low          SB","GB L.O.P Low Trip     SB","CPP #1 Pump Run       SB","CPP #2 Pump Run       SB","GB L.O Temp.Hi        SB"};
+	const char *textGroup9[]	=	{"DG Running            PS","DG Overspeed Trip     PS","DG L.O.P Low Trip     PS","DG F.W Temp.Hi Trip   PS","DG Emerg.Stop         PS","DG Fail To Start      PS","DG F.O Leakage        PS","DG Water Lvl.Low      PS",
 															 "DG L.O Temp.Hi        PS","DG L.O.P Low          PS","DG Jack Water Prs. Lo PS","DG F.O Press.Low      PS","DG F.W Temp.Hi        PS","DG Exh.Gas Temp.Hi    PS","DG Power Failure      PS","DG Running            SB",
 															 "DG Overspeed Trip     SB","DG L.O.P Low Trip     SB","DG F.W Temp.Hi Trip   SB","DG Emerg.Stop         SB","DG Fail To Start      SB","DG F.O Leakage        SB","DG Water Lvl.Low      SB","DG L.O Temp.Hi        SB",
-															 "DG L.O.P Low          SB","DG Jack Water Prs. Lo SB","DG F.O Press.Low      SB","DG F.W Temp.Hi        SB","DG Exh.Gas Temp.Hi    SB","DG Power Failure      SB","E.Gen Common Fault      ","E.Gen Running           "},
-															{"BT Analog Station Fail  ","BT Ctrl.Source Pow. Fail","BT Main Source Pow. Fail","BT Hyd Oil Lvl.Low      ","BT Hyd Oil Temp.Too Hi  ","BT Hyd.Oil Filter Clog. ","BT Min.Hyd.Oil.Prs.Low  ","BT Hyd.Motor Overload   ",
+															 "DG L.O.P Low          SB","DG Jack Water Prs. Lo SB","DG F.O Press.Low      SB","DG F.W Temp.Hi        SB","DG Exh.Gas Temp.Hi    SB","DG Power Failure      SB","E.Gen Common Fault      ","E.Gen Running           "};
+	const char *textGroup10[]	=	{"BT Analog Station Fail  ","BT Ctrl.Source Pow. Fail","BT Main Source Pow. Fail","BT Hyd Oil Lvl.Low      ","BT Hyd Oil Temp.Too Hi  ","BT Hyd.Oil Filter Clog. ","BT Min.Hyd.Oil.Prs.Low  ","BT Hyd.Motor Overload   ",
 															 "ST Hyd Overload         ","ST Analog Station Fail  ","ST Ctrl.Source Pow. Fail","ST Main Source Pow. Fail","ST Oil Lvl.Low          ","ST Overcurrent          ","ST Hyd.Oil Filter Clog. ","ST Min.Hyd.Oil Prs.Low  ",
 															 "ST Temp.>155 Deg C      ","ST Temp.>170 Deg C      ","ST Transf.Tmp>110 Deg C ","ST Transf.Tmp>150 Deg C ","BT Eng.Overspeed Trip   ","BT Eng.E.Stop           ","BT Eng.Run              ","BT Eng.Fuel Leakage     ",
-															 "BT Eng.L.O.P Low        ","BT Eng.Water Temp. Hi   ","BT Eng.Water Lvl. Low   "},
-															{"SG 1 HP 1 coil. Fault   ","SG 1 HP 2 coil. Fault   ","SG 1 HP 1 Low oil LVl   ","SG 1 HP 2 Low oil LVl   ","SG 1 Warning Sys. Fail  ","SG 2 HP 1 coil. Fault   ","SG 2 HP 2 coil. Fault   ","SG 2 HP 1 Low oil LVl   ",
+															 "BT Eng.L.O.P Low        ","BT Eng.Water Temp. Hi   ","BT Eng.Water Lvl. Low   "};
+	const char *textGroup11[]	=	{"SG 1 HP 1 coil. Fault   ","SG 1 HP 2 coil. Fault   ","SG 1 HP 1 Low oil LVl   ","SG 1 HP 2 Low oil LVl   ","SG 1 Warning Sys. Fail  ","SG 2 HP 1 coil. Fault   ","SG 2 HP 2 coil. Fault   ","SG 2 HP 1 Low oil LVl   ",
 															 "SG 2 HP 2 Low oil LVl   ","SG 2 Warning Sys. Fail  ","SG Amplifier 1 Fault    ","SG Amplifier 2 Fault    ","SG Amplifier 3 Fault    ","SG Amplifier 4 Fault    ","SG Autopilot Fault      ","SG Autopilot Sys.1 Fail.",
-															 "SG Autopilot Sys.2 Fail."},
-															{"MSB Volt Hi             ","MSB Volt Low            ","MSB Freq.Hi             ","MSB Freq.Low            ","MSB 440V Low Insulation ","MSB 230V Low Insulation ","MSB Preferential Trip   ","MSB Abnormal            ",
-															 "ESB 440V Low Insulation ","ESB 230V Low Insulation ","MSB PLC Failure         ","#1 Batt.Char.24VDC Fail ","#2 Batt.Char.24VDC Fail ","#3 Batt.Char.24VDC Fail "},
-															{"ER AFT End WTD        PS","ER AFT End WTD        SB","ER Cement Compt. WTD  PS","ER Cement Compt. WTD  SB","Cement Compt. FWD WTD   ","M.Deck-ER Access WTD  PS","M.Deck-Sick Bay WTD   SB","M.Deck-SG Access WTH. PS",
-															 "FWD-M.Deck Store WTH. PS","FWD-Bosun Store WTH.  SB"},
-															{"SG Thruster Tun. Lvl.Hi ","AFT Cofferdam Lvl.Hi  PS","AFT Cofferdam Lvl.Hi  SB","Shaft Tun.Lvl.Hi      PS","Shaft Tun.Lvl.Hi      SB","Shaft Tun.FWD Lvl. Hi PS","Shaft Tun.FWD Lvl. Hi SB","ER AFT Lvl.Hi         PS",
+															 "SG Autopilot Sys.2 Fail."};
+	const char *textGroup12[]	=	{"MSB Volt Hi             ","MSB Volt Low            ","MSB Freq.Hi             ","MSB Freq.Low            ","MSB 440V Low Insulation ","MSB 230V Low Insulation ","MSB Preferential Trip   ","MSB Abnormal            ",
+															 "ESB 440V Low Insulation ","ESB 230V Low Insulation ","MSB PLC Failure         ","#1 Batt.Char.24VDC Fail ","#2 Batt.Char.24VDC Fail ","#3 Batt.Char.24VDC Fail "};
+	const char *textGroup13[]	=	{"ER AFT End WTD        PS","ER AFT End WTD        SB","ER Cement Compt. WTD  PS","ER Cement Compt. WTD  SB","Cement Compt. FWD WTD   ","M.Deck-ER Access WTD  PS","M.Deck-Sick Bay WTD   SB","M.Deck-SG Access WTH. PS",
+															 "FWD-M.Deck Store WTH. PS","FWD-Bosun Store WTH.  SB"};
+	const char *textGroup14[]	=	{"SG Thruster Tun. Lvl.Hi ","AFT Cofferdam Lvl.Hi  PS","AFT Cofferdam Lvl.Hi  SB","Shaft Tun.Lvl.Hi      PS","Shaft Tun.Lvl.Hi      SB","Shaft Tun.FWD Lvl. Hi PS","Shaft Tun.FWD Lvl. Hi SB","ER AFT Lvl.Hi         PS",
 															 "ER AFT Lvl.Hi         SB","ER FWD Lvl.Hi         PS","ER FWD Lvl.Hi         SB","Bulk Rm.AFT Lvl. Hi   PS","Bulk Rm.AFT Lvl. Hi   SB","Cofferdam Lvl.Hi        ","BT Sew.Hold Tk Lvl.Hi   ","DB Void Lvl.Hi          ",
 															 "Bt Rm.Lvl.Hi            ","Dirty Oil Tk.Lv.Hi      ","Bilge Hold.Tk.Lvl. Hi   ","#1 F.O Tk.Lvl.Hi      PS","#1 F.O Tk.Lvl.Hi      SB","#2 F.O Tk.Lvl.Hi      PS","#2 F.O Tk.Lvl.Hi      SB","#2 F.O Tk.Lvl.Hi      CT",
 															 "#3 F.O Tk.Lvl.Hi      PS","#3 F.O Tk.Lvl.Hi      SB","#4 F.O Tk.Lvl.Hi      PS","#4 F.O Tk.Lvl.Hi      SB","#4 F.O Tk.Lvl.Hi      CT","#5 F.O Tk.Lvl.Hi      PS","#5 F.O Tk.Lvl.Hi      SB","F.O Day Tk.Lvl.Hi     PS",
 															 "F.O Day Tk.Lvl.Hi     SB","ME L.O Store.Tk Hi    PS","Gen L.O Store.Tk.Hi   SB","Hyd.Oil Store.Tk.Hi   SB","Dirty Oil Tk.Lvl.Hi   PS","Bilge Hold.Tk.Lvl.Hi  SB","Sewage Hold.Tk.Lvl.Hi   ","Foam Tk.Lvl.Hi        SB",
 															 "Detergent Tk.Lvl.Hi   PS","#1 Mud Tk.Lvl.Hi      CT","#2 Mud Tk.Lvl.Hi      CT","#1 Pot.Wat.Tk.Lvl.Hi  PS","#1 Pot.Wat.Tk.Lvl.Hi  SB","#2 Pot.Wat.Tk.Lvl.Hi  PS","#2 Pot.Wat.Tk.Lvl.Hi  SB","#1 DW & WB Tk.Lvl.Hi  CT",
-															 "#2 DW & WB Tk.Lvl.Hi  PS","#2 DW & WB Tk.Lvl.Hi  SB","#3 DW & WB Tk.Lvl.Hi  PS","#3 DW & WB Tk.Lvl.Hi  SB","#4 DW & WB Tk.Lvl.Hi  PS","#4 DW & WB Tk.Lvl.Hi  SB","#5 DW & WB Tk.Lvl.Hi  PS","#5 DW & WB Tk.Lvl.Hi  SB"},
-															{"L.O Separator Fail      ","L.O Heater Alarm Fail   ","Light Column Fail       ","Main Supply Fail        ","Bkup. Supply Fail       ","CO2 System Power Fail   ","FIFI Common Fault       ","Fire Alarm              ",
+															 "#2 DW & WB Tk.Lvl.Hi  PS","#2 DW & WB Tk.Lvl.Hi  SB","#3 DW & WB Tk.Lvl.Hi  PS","#3 DW & WB Tk.Lvl.Hi  SB","#4 DW & WB Tk.Lvl.Hi  PS","#4 DW & WB Tk.Lvl.Hi  SB","#5 DW & WB Tk.Lvl.Hi  PS","#5 DW & WB Tk.Lvl.Hi  SB"};
+	const char *textGroup15[]	=	{"L.O Separator Fail      ","L.O Heater Alarm Fail   ","Light Column Fail       ","Main Supply Fail        ","Bkup. Supply Fail       ","CO2 System Power Fail   ","FIFI Common Fault       ","Fire Alarm              ",
 															 "Main Fire Pump Start    ","F.O Day Tk.Lvl.Hi(2)  PS","F.O Day Tk.Lvl.Low    PS","F.O Day Tk.Lvl.Hi(2)  SB","F.O Day Tk.Lvl.Low    SB","Starting Air Press. Low ","F.O Purifier Fail       ","Overflow Tk.#4 Lvl.Hi CT",
 															 "F.O Day Tk.E.Gen.Lv.Hi  ","F.O Day Tk.E.Gen.Lv.Low ","F.O Day Tk.BT.Lvl.Hi    ","F.O Day Tk.BT.Lvl.Low   ","Overflow Tk.#4 Lvl.Hi PS","Overflow Tk.#4 Lvl.Hi SB","Sewage Treat.Tk.Lv.Hi   ","Elec.Anti Foul.Syst.Abn ",
 															 "Work.Air Comp.Com. Alarm","Freezing Rm.Repose Alarm","Man Lock.In Alarm       ","Hyd.Pp.Tow.Stop Fail 1  ","Hyd.Pp.Tow.Stop Fail 2  ","Oily Wat.Sep.15 PPM Alm ","#1 F.O Transf.Pump Run  ","#2 F.O Transf.Pump Run  ",
@@ -185,12 +187,11 @@ void main()
 															 "ME Cl.Stby.L.O.Pp.Run PS","ME Cl.Stby.L.O.Pp.Run SB","Air-Con.Fan Run         ","Air-Con.Fan Abnormal    ","Air-Con. #1 Comp. Run   ","Air-Con. #1 Comp. Abn.  ","Air-Con. #2 Comp. Run   ","Air-Con. #2 Comp. Abn.  ",
 															 "#1 ER Vent.Fan Trip     ","#2 ER Vent.Fan Trip     ","#1 Ref.Comp.Run         ","#1 Ref.Comp. Abnormal   ","#2 Ref.Comp.Run         ","#2 Ref.Comp. Abnormal   ","Sh.Gen #1 Wind. Tmp.H PS","Sh.Gen #2 Wind. Tmp.H PS",
 															 "Sh.Gen #3 Wind. Tmp.H PS","Sh.Gen F.Bear. Tmp.H  PS","#1 M.Air Compressor Run ","#1 M.Air Comp.Com. Fault","#2 M.Air Compressor Run ","#2 M.Air Comp.Com. Fault","Sh.Gen R.Bear.Tmp.H   PS","Sh.Gen #1 Wind. Tmp.H SB",
-															 "Sh.Gen #2 Wind. Tmp.H SB","Sh.Gen #3 Wind. Tmp.H SB","Sh.Gen F.Bear.Tmp.H   SB","Sh.Gen R.Bear.Tmp.H   SB"}};
+															 "Sh.Gen #2 Wind. Tmp.H SB","Sh.Gen #3 Wind. Tmp.H SB","Sh.Gen F.Bear.Tmp.H   SB","Sh.Gen R.Bear.Tmp.H   SB"};
 	
-	
-	u8 textChannelsLenght[] = {4, 2, 14, 4, 2, 14, 13, 13, 32, 27, 17, 14, 10, 56, 68};
+const char **textChannels[]	=	{textGroup1, textGroup2, textGroup3, textGroup4, textGroup5, textGroup6, textGroup7, textGroup8, textGroup9, textGroup10, textGroup11, textGroup12, textGroup13, textGroup14, textGroup15};
 
-
+size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGroup2) / sizeof(textGroup2[0]), sizeof(textGroup3) / sizeof(textGroup3[0]), sizeof(textGroup4) / sizeof(textGroup4[0]), sizeof(textGroup5) / sizeof(textGroup5[0]), sizeof(textGroup6) / sizeof(textGroup6[0]), sizeof(textGroup7) / sizeof(textGroup7[0]), sizeof(textGroup8) / sizeof(textGroup8[0]), sizeof(textGroup9) / sizeof(textGroup9[0]), sizeof(textGroup10) / sizeof(textGroup10[0]), sizeof(textGroup11) / sizeof(textGroup11[0]), sizeof(textGroup12) / sizeof(textGroup12[0]), sizeof(textGroup13) / sizeof(textGroup13[0]), sizeof(textGroup14) / sizeof(textGroup14[0]), sizeof(textGroup15) / sizeof(textGroup15[0])};
 		//ME Shutdown - PS				 	 //OK                                                                      
 		//ME Slowdown - PS				 	 //OK
 		//ME Alarm - PS		         	 //OK
