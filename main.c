@@ -37,38 +37,41 @@ size_t textChannelsLengths[] = {sizeof(meShutdownPs) / sizeof(u16), sizeof(meSlo
 // usteki bunun yerine kececek
 	u8 textChannelsLenght[] = {4, 2, 14, 4, 2, 14, 13, 13, 32, 27, 17, 14, 10, 56, 68};
 
-u8 analogIDsOrder[15][68]  = 	{{0, 0, 0, 0}, //ME Shutdown - PS
-															 {0, 0}, //meSlowdownPs
-															 {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}, //meAlarmPs
-															 {0, 0, 0, 0}, //meShutdownSb
-															 {0, 0}, //meSlowdownSb
-															 {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}, //meAlarmSb
-															 {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1}, //cppGbAlarmPs
-															 {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1}, //cppGbAlarmSb
-															 {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0}, //generatorsAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //thrustersAlarms
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //steeringGearAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //msbEsbAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //wtdHatchesAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, //tanksBilgesAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1}}; //machnineryAlarm
-			
-u8 statusOrder[15][68]  = 		{{0, 0, 0, 2}, //ME Shutdown - PS
-															 {0, 0}, //meSlowdownPs
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //meAlarmPs
-															 {0, 0, 0, 3}, //meShutdownSb
-															 {0, 0}, //meSlowdownSb
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //meAlarmSb
-															 {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}, //cppGbAlarmPs
-															 {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}, //cppGbAlarmSb
-															 {3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3}, //generatorsAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}, //thrustersAlarms
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //steeringGearAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //msbEsbAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //wtdHatchesAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //tanksBilgesAlarm
-															 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 4, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0}}; //machnineryAlarm			
+u8 analogIDsOrder1[]  = 	{0, 0, 0, 0}; //ME Shutdown - PS
+u8 analogIDsOrder2[]  = 	{0, 0}; //meSlowdownPs
+u8 analogIDsOrder3[]  = 	{0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}; //meAlarmPs
+u8 analogIDsOrder4[]  = 	{0, 0, 0, 0}; //meShutdownSb
+u8 analogIDsOrder5[]  = 	{0, 0}; //meSlowdownSb
+u8 analogIDsOrder6[]  = 	{0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0}; //meAlarmSb
+u8 analogIDsOrder7[]  = 	{0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1}; //cppGbAlarmPs
+u8 analogIDsOrder8[]  = 	{0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1}; //cppGbAlarmSb
+u8 analogIDsOrder9[]	= 	{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0}; //generatorsAlarm
+u8 analogIDsOrder10[]	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //thrustersAlarms
+u8 analogIDsOrder11[]	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //steeringGearAlarm
+u8 analogIDsOrder12[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //msbEsbAlarm
+u8 analogIDsOrder13[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //wtdHatchesAlarm
+u8 analogIDsOrder14[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}; //tanksBilgesAlarm
+u8 analogIDsOrder15[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1}; //machnineryAlarm
+	
+	u8* analogIDsOrder[]	=	{analogIDsOrder1, analogIDsOrder2, analogIDsOrder3, analogIDsOrder4, analogIDsOrder5, analogIDsOrder6, analogIDsOrder7, analogIDsOrder8, analogIDsOrder9, analogIDsOrder10, analogIDsOrder11, analogIDsOrder12, analogIDsOrder13, analogIDsOrder14, analogIDsOrder15};
+	
+u8 statusOrder1[]   = 		{0, 0, 0, 2}; //ME Shutdown - PS
+u8 statusOrder2[]   = 		{0, 0}; //meSlowdownPs
+u8 statusOrder3[]   = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmPs
+u8 statusOrder4[]   = 		{0, 0, 0, 3}; //meShutdownSb
+u8 statusOrder5[]   = 		{0, 0}; //meSlowdownSb
+u8 statusOrder6[]   = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmSb
+u8 statusOrder7[]   = 		{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}; //cppGbAlarmPs
+u8 statusOrder8[]   = 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}; //cppGbAlarmSb
+u8 statusOrder9[]		= 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3}; //generatorsAlarm
+u8 statusOrder10[]	= 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}; //thrustersAlarms
+u8 statusOrder11[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //steeringGearAlarm
+u8 statusOrder12[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //msbEsbAlarm
+u8 statusOrder13[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //wtdHatchesAlarm
+u8 statusOrder14[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //tanksBilgesAlarm
+u8 statusOrder15[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 4, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0}; //machnineryAlarm			
 
+	u8* statusOrder[]	=	{statusOrder1, statusOrder2, statusOrder3, statusOrder4, statusOrder5, statusOrder6, statusOrder7, statusOrder8, statusOrder9, statusOrder10, statusOrder11, statusOrder12, statusOrder13, statusOrder14, statusOrder15};
 																 
 u8 countTheChannels = 0;	
 u8 dynamicPageLimit = 0;
@@ -558,7 +561,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 							}
 							
 							
-							stationAlarmArray[1] = stationAlarmArray[0];	
+							stationAlarmArray[1] = stationAlarmArray[0];
 							stationAlarmArray[0] = textChannelsID[signalGroup][signalOrder]; 	//sirali olan id hansidi goturub getirib yazir bu variableye.
 							
 							signalChannel[1] = signalChannel[0];
