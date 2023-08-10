@@ -76,8 +76,8 @@ u8 statusOrder15[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 u8 countTheChannels = 0;	
 u8 dynamicPageLimit = 0;
 u16 channelNumbers[15] = {10544, 8497, 16434, 9011, 9268, 9525, 24118, 9783, 10808, 10297, 16737, 16994, 17251, 17508, 17765};														 
-u8 alarmOnBefore[15][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable
-																 
+u8 alarmOnBefore[15][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable   ///
+																 ////// bu yuxardakinde yer azalsin deye duzelde bilerik
 u16 stationAlarmArray[100];
 															 
 int signalChannel[100] = 0;
@@ -92,9 +92,9 @@ float group13_100[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,100,100,100,100,100
 void main()
 {
 	
-	extern float group[15][68];
+	extern float* group[];
 	//extern u8 alarmOn[15][68];
-	extern u8 *alarmOn[15];
+	extern u8 *alarmOn[];
 	
 	extern u16 stationAlarm[4];
 	

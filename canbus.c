@@ -1,5 +1,6 @@
 #include "canbus.h"
 #include "timer.h"
+#include <stdlib.h>
 //如果使用CAN，那么sys.h  必须增加如下宏定义  #define INTVPACTION
 
 /*CAN总线位时间参数的设定与调整
@@ -27,7 +28,26 @@ u8 textChannelsLenght[] = {4, 2, 14, 4, 2, 14, 13, 13, 32, 27, 17, 14, 10, 56, 6
 	//u8 tmp[4][2];
 	u8 tmp[50][4][2];
 	
-	float group[15][68];
+	//float group[15][68];
+
+	float group1[]  	= 	{0, 0, 0, 0}; //ME Shutdown - PS
+	float group2[]  	= 	{0, 0}; //meSlowdownPs
+	float group3[]  	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmPs
+	float group4[]  	= 	{0, 0, 0, 0}; //meShutdownSb
+	float group5[]  	= 	{0, 0}; //meSlowdownSb
+	float group6[]  	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmSb
+	float group7[]  	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //cppGbAlarmPs
+	float group8[]  	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //cppGbAlarmSb
+	float group9[]		= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //generatorsAlarm
+	float group10[]		= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //thrustersAlarms
+	float group11[]		= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //steeringGearAlarm
+	float group12[] 	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //msbEsbAlarm
+	float group13[] 	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //wtdHatchesAlarm
+	float group14[] 	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //tanksBilgesAlarm
+	float group15[] 	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //machnineryAlarm
+
+	float*	group[]	=	{group1, group2, group3, group4, group5, group6, group7, group8, group9, group10, group11, group12, group13, group14, group15};
+
 	
 	u8 tmpD10B[8];
 	u8 tmpD10C[8];
@@ -39,8 +59,26 @@ u8 textChannelsLenght[] = {4, 2, 14, 4, 2, 14, 13, 13, 32, 27, 17, 14, 10, 56, 6
 	u8 tmpD314[8];
 	u8 tmpD408[8];
 	
-	u8 alarmOn[15][68];
-	
+	//u8 alarmOn[15][68];
+
+	u8 alarmOn1[]  	= 	{0, 0, 0, 0}; //ME Shutdown - PS
+	u8 alarmOn2[]  	= 	{0, 0}; //meSlowdownPs
+	u8 alarmOn3[]  	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmPs
+	u8 alarmOn4[]  	= 	{0, 0, 0, 0}; //meShutdownSb
+	u8 alarmOn5[]  	= 	{0, 0}; //meSlowdownSb
+	u8 alarmOn6[]  	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmSb
+	u8 alarmOn7[]  	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //cppGbAlarmPs
+	u8 alarmOn8[]  	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //cppGbAlarmSb
+	u8 alarmOn9[]		= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //generatorsAlarm
+	u8 alarmOn10[]	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //thrustersAlarms
+	u8 alarmOn11[]	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //steeringGearAlarm
+	u8 alarmOn12[] 	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //msbEsbAlarm
+	u8 alarmOn13[] 	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //wtdHatchesAlarm
+	u8 alarmOn14[] 	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //tanksBilgesAlarm
+	u8 alarmOn15[] 	= 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //machnineryAlarm
+
+	u8*	alarmOn[]	=	{alarmOn1, alarmOn2, alarmOn3, alarmOn4, alarmOn5, alarmOn6, alarmOn7, alarmOn8, alarmOn9, alarmOn10, alarmOn11, alarmOn12, alarmOn13, alarmOn14, alarmOn15};
+
 	
 	u16 stationAlarm[4];
 	
