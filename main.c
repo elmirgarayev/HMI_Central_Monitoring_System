@@ -85,22 +85,21 @@ int signalNumber[100] = 0;
 //int signalNu[100] = 0;
 int alarmNumber[100] = 0;
 															 
-float group13[] 		= {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6.573,6.573,1.8,1.8,1.2,5.833,5.833,1.142,1.142,1.2,2,2,3,3,3.8,1.5,2.3,1.2,1.2,1,2,2,4.4,4.133,6.8,6.8,4.852,4.852,6.8,6.8,6.8,5.9,5.9,5.857,5.857,2.9,2.9}; //56
-float group13_100[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100}; //56
+float group_13[] 		= {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6.573,6.573,1.8,1.8,1.2,5.833,5.833,1.142,1.142,1.2,2,2,3,3,3.8,1.5,2.3,1.2,1.2,1,2,2,4.4,4.133,6.8,6.8,4.852,4.852,6.8,6.8,6.8,5.9,5.9,5.857,5.857,2.9,2.9}; //56
+float group_13_100[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100}; //56
 
 	
 void main()
 {
 	
-	extern float* group[];
-	//extern u8 alarmOn[15][68];
+	extern float *group[];
+	///extern u8 alarmOn[15][68];
 	extern u8 *alarmOn[];
 	
 	extern u16 stationAlarm[4];
 	
 	
 	extern u16 stationTest;
-	
 	
 	u16 zero[]={0,1,2,3,4,5,6,7,8,9};
 	
@@ -429,7 +428,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 				for(i=0;i<8;i++){	//8 eded signal ucun loop
 					if((analogIDsOrder[countTheChannels][i+pageState*8] == 1) && (i<dynamicPageLimit)){//bura hansilarinin analog oldugun gosterir ve eger limiti kecmeyibse
 						if(countTheChannels == 13){
-							sprintf(str[i+pageState*8],"%.2f",(group[countTheChannels][i+pageState*8] / group13[i+pageState*8] * group13_100[i+pageState*8]));//bura analoga cevirir
+							sprintf(str[i+pageState*8],"%.2f",(group[countTheChannels][i+pageState*8] / group_13[i+pageState*8] * group_13_100[i+pageState*8]));//bura analoga cevirir
 						}
 						else{
 							sprintf(str[i+pageState*8],"%.2f",group[countTheChannels][i+pageState*8]);//bura analoga cevirir
