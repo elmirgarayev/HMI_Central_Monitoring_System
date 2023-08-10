@@ -35,7 +35,7 @@ u16* textChannelsID[]	=	{meShutdownPs, meSlowdownPs, meAlarmPs, meShutdownSb, me
 
 size_t textChannelsLengths[] = {sizeof(meShutdownPs) / sizeof(u16), sizeof(meSlowdownPs) / sizeof(u16), sizeof(meAlarmPs) / sizeof(u16), sizeof(meShutdownSb) / sizeof(u16), sizeof(meSlowdownSb) / sizeof(u16), sizeof(meAlarmSb) / sizeof(u16), sizeof(cppGbAlarmPs) / sizeof(u16), sizeof(cppGbAlarmSb) / sizeof(u16), sizeof(generatorsAlarm) / sizeof(u16), sizeof(thrustersAlarms) / sizeof(u16), sizeof(steeringGearAlarm) / sizeof(u16), sizeof(msbEsbAlarm) / sizeof(u16), sizeof(wtdHatchesAlarm) / sizeof(u16), sizeof(tanksBilgesAlarm) / sizeof(u16), sizeof(machnineryAlarm) / sizeof(u16)};
 // usteki bunun yerine kececek
-	u8 textChannelsLenght[] = {4, 2, 14, 4, 2, 14, 13, 13, 32, 27, 17, 14, 10, 56, 68};
+//	u8 textChannelsLenght[] = {4, 2, 14, 4, 2, 14, 13, 13, 32, 27, 17, 14, 10, 56, 68};
 
 u8 analogIDsOrder1[]  = 	{0, 0, 0, 0}; //ME Shutdown - PS
 u8 analogIDsOrder2[]  = 	{0, 0}; //meSlowdownPs
@@ -330,8 +330,8 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 				channelState = countTheChannels;
 				write_dgus_vp(0x1300,(u8*)&zero,1); // knopka deyerin 0 ele
 				pageTextWriteFlag = 1;
-				pageLimit=  textChannelsLenght[countTheChannels]/channelPerPage;  			//page sayi 1
-				channelLimit=textChannelsLenght[countTheChannels]%channelPerPage;      //son seyfede olan signal sayi
+				pageLimit=  textChannelsLengths[countTheChannels]/channelPerPage;  			//page sayi 1
+				channelLimit=textChannelsLengths[countTheChannels]%channelPerPage;      //son seyfede olan signal sayi
 				write_dgus_vp(0x1012,(u8*)&zero,1); ////page 1 e qayid
 				if(channelLimit == 0)
 				{
@@ -531,7 +531,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 		
 		for(signalGroup=0;signalGroup<15;signalGroup++){			//grouplari sayir
 			for(signalOrder=0;signalOrder<68;signalOrder++){		//her groupdaki siqnallari sirasiyla sayir
-				if(signalOrder<textChannelsLenght[signalGroup]){	//eger signal groupundaki signal sayin kecmirse yaz
+				if(signalOrder<textChannelsLengths[signalGroup]){	//eger signal groupundaki signal sayin kecmirse yaz
 					if(alarmOn[signalGroup][signalOrder] == 1){		//eger alarm cixibsa
 						if(alarmOnBefore[signalGroup][signalOrder] == 0){	//eger bu alarm evvel cixmamis idise
 							rdtime();	
