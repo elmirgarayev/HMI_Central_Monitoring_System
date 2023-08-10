@@ -3,7 +3,7 @@
 #include "sys.h"
 #include "rtc1.h"
 #include <stdio.h>
-
+#include <stdlib.h>
 
 void system_paly_audio(u8 audiotime)
 {
@@ -93,8 +93,8 @@ void main()
 {
 	
 	extern float group[15][68];
-	extern u8 alarmOn[15][68];
-
+	//extern u8 alarmOn[15][68];
+	extern u8 *alarmOn[15];
 	
 	extern u16 stationAlarm[4];
 	
