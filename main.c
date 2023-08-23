@@ -244,11 +244,11 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 	u16 dateFromRtcDisplay[10];
 	
 
-	int memYear[100];   // 0 ci
-	int memMonth[100];	// 1 ci
-	int memDay[100];		// 2 ci
-	int memHour[100];		// 4 cu
-	int memMin[100];		// 5 ci
+	u16 memYear[100];   // 0 ci
+	u16 memMonth[100];	// 1 ci
+	u16 memDay[100];		// 2 ci
+	u16 memHour[100];		// 4 cu
+	u16 memMin[100];		// 5 ci
 	
 
 	
