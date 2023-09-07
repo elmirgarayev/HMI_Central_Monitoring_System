@@ -101,6 +101,14 @@ void main()
 	
 	extern u16 stationTest;
 	
+	extern u16 idNumber[10];
+	
+	extern u16 idOrder[10];
+	
+	extern u16 test[2];
+	
+	extern u8 num[10];
+	
 	u16 zero[]={0,1,2,3,4,5,6,7,8,9};
 	
 	u8 pageTextWriteFlag = 1;
@@ -240,15 +248,8 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 	u8 dateRead[5][2];  ///HMI terfinden set olan tarix ve saat;
 	u8 dateSet[6];      ///dataRead daki reqemleri Rtc_set_time funksiyasiya uygun hala getrimke ucun
 	
-	u8 dateFromRtc[10];	// rtc de sayilan deyers oxuyub bura yaziriq
-	u16 dateFromRtcDisplay[10];
-	
 
-	u16 memYear[100];   // 0 ci
-	u16 memMonth[100];	// 1 ci
-	u16 memDay[100];		// 2 ci
-	u16 memHour[100];		// 4 cu
-	u16 memMin[100];		// 5 ci
+
 	
 
 	
@@ -262,10 +263,12 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 	u8 pageLimitCounterA=0;  			// seyfe limitin belirleyir
 	u8 channelLimit=0; 		// son seyfede olan signal sayi
 	u8 i=0,j=0,alarmOrder=0;				//alarmOrder deyiskeni yuzdene alarmi surusduren counterdi
-	int m=0;
+	int m=0 , mm=0, mmm=0, mmmm =0, mnn = 0;
 	int signalGroup=0, signalOrder=0;
 	u8 alarmState=0;
 	u8 testSend[] = {1,2};
+	u16 alarmStartEnd[2];
+	u8 alarmStartEnd8bit[4];
 	
 	T0_Init();						//定时器0初始化
 	//Baud rate:125K{0x3F,0x40,0x72,0x00},250K{0x1F,0x40,0x72,0x00},500K{0x0F,0x40,0x72,0x00},1M{0x07,0x40,0x72,0x00}
@@ -277,9 +280,10 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 	rtc_init();
 	EA = 1;
 	StartTimer(0,50);
-	StartTimer(1,100);
+	StartTimer(1,1000);
 	StartTimer(2,2000);
 	StartTimer(3,1000);
+	StartTimer(4,5000);
 	//Rtc_set_time(date);
 	
 
@@ -291,17 +295,18 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			CanTx(0x054,0,1, testSend); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
 			StartTimer(3,1000);
 		}
-		
+
 		
 	
 		if(GetTimeOutFlag(0))
 		{
-			canRxTreat();           //receive example
+			//canRxTreat();           //receive example
 			rdtime();
-			StartTimer(0,50);
+			//StartTimer(0,10);
 		}
 		CanErrorReset();
 		
+		canRxTreat();
 		
 		read_dgus_vp(0x1010,&ok,1);  // ok knopkasina basildi yoxsa yox;
 		//write_dgus_vp(0x1012,&ok,1); // ok u gormek ucun yazdigim setir
@@ -509,16 +514,69 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			}
 		}
 		
-		read_dgus_vp(0x1016,&rightLeftPageA,1);
 		
-		if(rightLeftPageA[1] != pageStateA){ // eger sola yada saga basildisa
+		
+		read_dgus_vp(0x1016,&rightLeftPageA,1);
+
+		
+		
+		
+		if(rightLeftPageA[1] != pageStateA){ // eger sola yada saga basildisa alarm seyfesinde
+			
+			StartTimer(1,1000);	// sigranl teleb eleme timerin baslat eger knopkaya basilibsa.
+			
+			for(mmmm = 0; mmmm < 10; mmmm++){
+				idNumber[mmmm] = 0;
+				idOrder[mmmm] = 0;
+				sprintf(string1,"                  ");
+				write_dgus_vp(0x1500+18*mmmm,string1,9);
+				sprintf(string1,"      ");
+				write_dgus_vp(0x1310+mmmm*4,string1,3);
+				sprintf(string1,"                        ");
+				write_dgus_vp(0x1339+12*mmmm,string1,12);
+			}
+
+			/*
+			alarmStartEnd[0] = pageStateA * 10;	//seyfeni deyisdikce istenen seyfe sayisi deyisir baslangic
+			alarmStartEnd[1] = pageStateA * 10 + 10;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
+			
+			alarmStartEnd8bit[0] = (u8)alarmStartEnd[0];
+			alarmStartEnd8bit[1] = (u8)(alarmStartEnd[0] >> 8);
+			alarmStartEnd8bit[2] = (u8)alarmStartEnd[1];
+			alarmStartEnd8bit[3] = (u8)(alarmStartEnd[1] >> 8);
+			CanTx(0x660,0,4, alarmStartEnd8bit); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+			*/			
+			
+			/*
 			if(rightLeftPageA[1] >= pageLimitA){
 				write_dgus_vp(0x1016,(u8*)&zero+pageLimitA*2,1);
 			}
+			*/
+			//write_dgus_vp(0x1016,(u8*)&zero+pageLimitA*2,1);
+			
+			/*
+			for(mmmm = 0; mmmm < 1000; mmmm++){
+			}
+			*/
+			
 			pageStateA = rightLeftPageA[1];
+			
+			/*
+			alarmStartEnd[0] = pageStateA * 10;	//seyfeni deyisdikce istenen seyfe sayisi deyisir baslangic
+			alarmStartEnd[1] = pageStateA * 10 + 10;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
+			
+			alarmStartEnd8bit[0] = (u8)alarmStartEnd[0];
+			alarmStartEnd8bit[1] = (u8)(alarmStartEnd[0] >> 8);
+			alarmStartEnd8bit[2] = (u8)alarmStartEnd[1];
+			alarmStartEnd8bit[3] = (u8)(alarmStartEnd[1] >> 8);
+			CanTx(0x660,0,4, alarmStartEnd8bit); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+			*/
 			pageTextWriteFlagA = 1;
 		}
-			
+		
+
+
+		
 		write_dgus_vp(0x15B4,text_page[pageStateA],4);
 			
 		if ((stationAlarm[0] == 1) || (stationAlarm[1] == 1) || (stationAlarm[2] == 1) || (stationAlarm[3] == 1)){
@@ -528,85 +586,6 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			alarmState = 0;
 		}
 		
-		for(signalGroup=0;signalGroup<15;signalGroup++){			//grouplari sayir
-			for(signalOrder=0;signalOrder<68;signalOrder++){		//her groupdaki siqnallari sirasiyla sayir
-				if(signalOrder<textChannelsLengths[signalGroup]){	//eger signal groupundaki signal sayin kecmirse yaz
-					if(alarmOn[signalGroup][signalOrder] == 1){		//eger alarm cixibsa
-						if(alarmOnBefore[signalGroup][signalOrder] == 0){	//eger bu alarm evvel cixmamis idise
-							rdtime();	
-							read_dgus_vp(0x0010,&dateFromRtc[0],4);					//saati oxumagi yoxla
-							
-							//alarmState = 1;
-							// zamanlari oxu
-							dateFromRtcDisplay[0] = dateFromRtc[0];
-							dateFromRtcDisplay[1] = dateFromRtc[1];
-							dateFromRtcDisplay[2] = dateFromRtc[2];
-							//dateFromRtcDisplay[3] = dateFromRtc[3];	//isledilmir
-							dateFromRtcDisplay[4] = dateFromRtc[4];
-							dateFromRtcDisplay[5] = dateFromRtc[5];
-							//dateFromRtcDisplay[6] = dateFromRtc[6];	//isledilmir
-							//dateFromRtcDisplay[7] = dateFromRtc[7];	//isledilmir
-							
-							
-							for(alarmOrder=98;alarmOrder>0;alarmOrder--){			//bu setir alarm seyfesindeki csxan alarmlari surusdurur qeydedir
-								stationAlarmArray[alarmOrder+1] 	= stationAlarmArray[alarmOrder];
-								signalChannel[alarmOrder+1] 			= signalChannel[alarmOrder];	//hangi kanal oldugu
-								alarmNumber[alarmOrder+1] 				= alarmNumber[alarmOrder];	//hansi signal oldugu
-								memYear[alarmOrder+1]							= memYear[alarmOrder];		//il
-								memMonth[alarmOrder+1]						= memMonth[alarmOrder];		//ay
-								memDay[alarmOrder+1]							= memDay[alarmOrder];			//gun
-								memHour[alarmOrder+1]							= memHour[alarmOrder];		//saat
-								memMin[alarmOrder+1]							= memMin[alarmOrder];			//deqiqe
-							}
-							
-							
-							stationAlarmArray[1] = stationAlarmArray[0];
-							stationAlarmArray[0] = textChannelsID[signalGroup][signalOrder]; 	//sirali olan id hansidi goturub getirib yazir bu variableye.
-							
-							signalChannel[1] = signalChannel[0];
-							signalChannel[0] = signalGroup; // hansi group oldugun goturub yazir bura
-							
-							
-							alarmNumber[1] = alarmNumber[0];
-							alarmNumber[0] = signalOrder; //groupdaki hansi signal oldugun bura yazir 
-							
-							///////////////// bu yuxardaki ikisnden birin legv elemek lazimdi	//////////////////////////////////////////////////////////////////
-							
-							memYear[1] = memYear[0];
-							memYear[0] = dateFromRtcDisplay[0];		//ili yazidr
-							
-							memMonth[1] = memMonth[0];
-							memMonth[0] = dateFromRtcDisplay[1];		//ayi yazdir
-							
-							memDay[1] = memDay[0];
-							memDay[0] = dateFromRtcDisplay[2];			//gunu yazdir
-							
-							memHour[1] = memHour[0];
-							memHour[0] = dateFromRtcDisplay[4];			//saati yazdir
-							
-							memMin[1] = memMin[0];
-							memMin[0] = dateFromRtcDisplay[5];			//deyqeni yazdir
-							
-							if(pageLimitCounterA<1000)
-							{
-								pageLimitCounterA++;
-								pageLimitA = pageLimitCounterA/10;
-								if((pageLimitCounterA%10 == 0) && (pageLimitA != 0))
-								{
-									pageLimitA--;
-								}
-							}
-							
-							pageTextWriteFlagA = 1;
-						}
-						alarmOnBefore[signalGroup][signalOrder] = 1;	
-				}
-				else{
-					alarmOnBefore[signalGroup][signalOrder] = 0;
-				}
-				}
-			}
-		}
 		
 		read_dgus_vp(0x1102,&mute,1);
 			
@@ -619,25 +598,42 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 				}
 		}
 		
+					if(idOrder[mnn] != pageStateA*10 + mnn){
+							
+				alarmStartEnd[0] = pageStateA * 10 + mnn;	//seyfeni deyisdikce istenen seyfe sayisi deyisir baslangic
+				alarmStartEnd[1] = pageStateA * 10 + mnn + 1;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
+							
+				alarmStartEnd8bit[0] = (u8)alarmStartEnd[0];
+				alarmStartEnd8bit[1] = (u8)(alarmStartEnd[0] >> 8);
+				alarmStartEnd8bit[2] = (u8)alarmStartEnd[1];
+				alarmStartEnd8bit[3] = (u8)(alarmStartEnd[1] >> 8);
+				CanTx(0x660,0,4, alarmStartEnd8bit); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+				mnn++;
+			}
+			else{
+				mnn++;
+			}
 			
-		if(pageTextWriteFlagA == 1){
+			if(mnn >= 10){
+				mnn = 0;
+			}
+		
+			
+		//if(pageTextWriteFlagA == 1){
+			
 			for(m=0;m<10;m++)
 			{
 				write_dgus_vp((0x1500 + m*18),"                  ",9);
-				if(memYear[m] < 10)
-				{
-					sprintf(string1,"200%d/%d/%d   %d:%d",memYear[m+10*rightLeftPageA[1]], memMonth[m+10*rightLeftPageA[1]], memDay[m+10*rightLeftPageA[1]], memHour[m+10*rightLeftPageA[1]], memMin[m+10*rightLeftPageA[1]]);
-				}
-				else
-				{
-					sprintf(string1,"20%d/%d/%d   %d:%d",memYear[m+10*rightLeftPageA[1]], memMonth[m+10*rightLeftPageA[1]], memDay[m+10*rightLeftPageA[1]], memHour[m+10*rightLeftPageA[1]], memMin[m+10*rightLeftPageA[1]]);
-				}
+				
+				sprintf(string1,"%d/%d/",idNumber[m],idOrder[m]);
+				
 				//bu variyanti yaz yoxla
+				/*
 				if(((pageLimitCounterA%10 == 0) && (pageLimitCounterA != 0)) || (rightLeftPageA[1] != pageLimitA) || (m < pageLimitCounterA%10))
 				{
 					write_dgus_vp(0x1500+18*m,string1,9);
 					write_dgus_vp(0x1339+12*m,textChannels[signalChannel[m+10*rightLeftPageA[1]]][alarmNumber[m+10*rightLeftPageA[1]]],12);
-					sprintf(string[m],"%d",stationAlarmArray[m+10*rightLeftPageA[1]]);
+					sprintf(string[m],"%d",idNumber[m]);
 					write_dgus_vp(0x1310+m*4,string[m],3);
 				}
 				else
@@ -648,9 +644,50 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 					sprintf(string[m],"  ");
 					write_dgus_vp(0x1310+m*4,string[m],3);
 				}
+				*/
+				
+					write_dgus_vp(0x1500+18*m,string1,9);
+					
+					for(mm =0; mm < 15; mm++){
+						for(mmm =0; mmm < textChannelsLengths[mm]; mmm++){
+							if(textChannelsID[mm][mmm] == idNumber[m]){
+								write_dgus_vp(0x1339+12*m,textChannels[mm][mmm],12);
+							}
+						}
+					}
+					
+					//write_dgus_vp(0x1339+12*m,textChannels[signalChannel[m+10*rightLeftPageA[1]]][alarmNumber[m+10*rightLeftPageA[1]]],12);
+					sprintf(string[m],"%d",idNumber[m]);
+					//sprintf(string[m],"%d",test[0]);
+					write_dgus_vp(0x1310+m*4,string[m],3);
+					
+					
+					//write_dgus_vp(0x2000,num,10);
+					
+					
+					//if(GetTimeOutFlag(1)){
+					/*
+						if(idOrder[m] != pageStateA*10 + m){
+							
+							alarmStartEnd[0] = pageStateA * 10 + m;	//seyfeni deyisdikce istenen seyfe sayisi deyisir baslangic
+							alarmStartEnd[1] = pageStateA * 10 + m + 1;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
+							
+							alarmStartEnd8bit[0] = (u8)alarmStartEnd[0];
+							alarmStartEnd8bit[1] = (u8)(alarmStartEnd[0] >> 8);
+							alarmStartEnd8bit[2] = (u8)alarmStartEnd[1];
+							alarmStartEnd8bit[3] = (u8)(alarmStartEnd[1] >> 8);
+							CanTx(0x660,0,4, alarmStartEnd8bit); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+						}
+						*/
+					//}
+					
+				
 			}
-		pageTextWriteFlagA = 0;
-		}
+		//pageTextWriteFlagA = 0;
+		//}
+			
+			
+
 		
 
 	}
