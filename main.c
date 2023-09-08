@@ -531,7 +531,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 				sprintf(string1,"                  ");
 				write_dgus_vp(0x1500+18*mmmm,string1,9);
 				sprintf(string1,"      ");
-				write_dgus_vp(0x1310+mmmm*4,string1,3);
+				write_dgus_vp(0x1310+mmmm*4,string1,4);
 				sprintf(string1,"                        ");
 				write_dgus_vp(0x1339+12*mmmm,string1,12);
 			}
@@ -659,7 +659,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 					//write_dgus_vp(0x1339+12*m,textChannels[signalChannel[m+10*rightLeftPageA[1]]][alarmNumber[m+10*rightLeftPageA[1]]],12);
 					sprintf(string[m],"%d",idNumber[m]);
 					//sprintf(string[m],"%d",test[0]);
-					write_dgus_vp(0x1310+m*4,string[m],3);
+					write_dgus_vp(0x1310+m*4,string[m],4);
 					
 					
 					//write_dgus_vp(0x2000,num,10);
