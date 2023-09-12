@@ -109,6 +109,8 @@ void main()
 	
 	extern u8 num[10];
 	
+	extern u16 idOrderWriteFlag[10];
+	
 	u16 zero[]={0,1,2,3,4,5,6,7,8,9};
 	
 	u8 pageTextWriteFlag = 1;
@@ -263,7 +265,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 	u8 pageLimitCounterA=0;  			// seyfe limitin belirleyir
 	u8 channelLimit=0; 		// son seyfede olan signal sayi
 	u8 i=0,j=0,alarmOrder=0;				//alarmOrder deyiskeni yuzdene alarmi surusduren counterdi
-	int m=0 , mm=0, mmm=0, mmmm =0, mnn = 0;
+	int m=0 , mm=0, mmm=0, mmmm =0, mnn = 0, mnnn = 0;
 	int signalGroup=0, signalOrder=0;
 	u8 alarmState=0;
 	u8 testSend[] = {1,2};
@@ -535,6 +537,17 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 				sprintf(string1,"                        ");
 				write_dgus_vp(0x1339+12*mmmm,string1,12);
 			}
+			
+			idOrderWriteFlag[0] = 0;
+			idOrderWriteFlag[1] = 0;
+			idOrderWriteFlag[2] = 0;
+			idOrderWriteFlag[3] = 0;
+			idOrderWriteFlag[4] = 0;
+			idOrderWriteFlag[5] = 0;
+			idOrderWriteFlag[6] = 0;
+			idOrderWriteFlag[7] = 0;
+			idOrderWriteFlag[8] = 0;
+			idOrderWriteFlag[9] = 0;
 
 			/*
 			alarmStartEnd[0] = pageStateA * 10;	//seyfeni deyisdikce istenen seyfe sayisi deyisir baslangic
@@ -598,15 +611,41 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 				}
 		}
 		
+		
+		
+							if(idOrderWriteFlag[mnn] == 0){
+							
+				alarmStartEnd[0] = pageStateA * 10 + mnn;	//seyfeni deyisdikce istenen seyfe sayisi deyisir baslangic
+				//alarmStartEnd[1] = pageStateA * 10 + mnn;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
+				//alarmStartEnd[1] = pageStateA * 10 + mnn + 1;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
+						
+				alarmStartEnd8bit[0] = (u8)alarmStartEnd[0];
+				alarmStartEnd8bit[1] = (u8)(alarmStartEnd[0] >> 8);
+				//alarmStartEnd8bit[2] = (u8)alarmStartEnd[1];
+				//alarmStartEnd8bit[3] = (u8)(alarmStartEnd[1] >> 8);
+				CanTx(0x660,0,4, alarmStartEnd8bit); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+				//idOrderWriteFlag[mnn] = 1;
+								mnn++;
+			}
+			else{
+				mnn++;
+			}
+			
+			if(mnn >= 10){
+				mnn = 0;
+			}
+		
+		/*		
 					if(idOrder[mnn] != pageStateA*10 + mnn){
 							
 				alarmStartEnd[0] = pageStateA * 10 + mnn;	//seyfeni deyisdikce istenen seyfe sayisi deyisir baslangic
-				alarmStartEnd[1] = pageStateA * 10 + mnn + 1;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
-							
+				//alarmStartEnd[1] = pageStateA * 10 + mnn;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
+				//alarmStartEnd[1] = pageStateA * 10 + mnn + 1;	//seyfeni deyisdikce istenen seyfe sayisi deyisir bitis
+						
 				alarmStartEnd8bit[0] = (u8)alarmStartEnd[0];
 				alarmStartEnd8bit[1] = (u8)(alarmStartEnd[0] >> 8);
-				alarmStartEnd8bit[2] = (u8)alarmStartEnd[1];
-				alarmStartEnd8bit[3] = (u8)(alarmStartEnd[1] >> 8);
+				//alarmStartEnd8bit[2] = (u8)alarmStartEnd[1];
+				//alarmStartEnd8bit[3] = (u8)(alarmStartEnd[1] >> 8);
 				CanTx(0x660,0,4, alarmStartEnd8bit); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
 				mnn++;
 			}
@@ -617,7 +656,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			if(mnn >= 10){
 				mnn = 0;
 			}
-		
+			*/
 			
 		//if(pageTextWriteFlagA == 1){
 			
