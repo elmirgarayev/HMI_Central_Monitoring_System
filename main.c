@@ -4,6 +4,7 @@
 #include "rtc1.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void system_paly_audio(u8 audiotime)
 {
@@ -55,13 +56,13 @@ u8 analogIDsOrder15[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 
 	
 	u8* analogIDsOrder[]	=	{analogIDsOrder1, analogIDsOrder2, analogIDsOrder3, analogIDsOrder4, analogIDsOrder5, analogIDsOrder6, analogIDsOrder7, analogIDsOrder8, analogIDsOrder9, analogIDsOrder10, analogIDsOrder11, analogIDsOrder12, analogIDsOrder13, analogIDsOrder14, analogIDsOrder15};
 	
-u8 statusOrder1[]   = 		{0, 0, 0, 2}; //ME Shutdown - PS
+u8 statusOrder1[]   = 		{0, 0, 0, 3}; //ME Shutdown - PS
 u8 statusOrder2[]   = 		{0, 0}; //meSlowdownPs
 u8 statusOrder3[]   = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmPs
 u8 statusOrder4[]   = 		{0, 0, 0, 3}; //meShutdownSb
 u8 statusOrder5[]   = 		{0, 0}; //meSlowdownSb
 u8 statusOrder6[]   = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmSb
-u8 statusOrder7[]   = 		{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}; //cppGbAlarmPs
+u8 statusOrder7[]   = 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}; //cppGbAlarmPs
 u8 statusOrder8[]   = 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}; //cppGbAlarmSb
 u8 statusOrder9[]		= 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3}; //generatorsAlarm
 u8 statusOrder10[]	= 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}; //thrustersAlarms
@@ -105,11 +106,23 @@ void main()
 	
 	extern u16 idOrder[10];
 	
+	extern u16 idYear[10];
+	extern u16 idMonth[10];
+	extern u16 idDay[10];
+	extern u16 idHour[10];
+	extern u16 idMinute[10];
+	
 	extern u16 test[2];
 	
 	extern u8 num[10];
 	
 	extern u16 idOrderWriteFlag[10];
+	
+	char day[3];
+	char month[3];
+	char year[3];
+	char hour[3];
+	char minute[3];
 	
 	u16 zero[]={0,1,2,3,4,5,6,7,8,9};
 	
@@ -294,7 +307,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 		
 		if(GetTimeOutFlag(3))
 		{
-			CanTx(0x054,0,1, testSend); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
+			CanTx(0x051,0,1, testSend); //can dataa gonderme ilk id di ikinci 0 standar di eger 0x80 olsa idi extended olacaqdi. 4 lentght di. testsend yazanda dataa di.
 			StartTimer(3,1000);
 		}
 
@@ -660,11 +673,46 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			
 		//if(pageTextWriteFlagA == 1){
 			
+			if((test[1]/10) == pageStateA){
 			for(m=0;m<10;m++)
 			{
-				write_dgus_vp((0x1500 + m*18),"                  ",9);
 				
-				sprintf(string1,"%d/%d/",idNumber[m],idOrder[m]);
+				//write_dgus_vp((0x1500 + m*18),"                  ",9);
+				
+				if(idYear[m] < 10){
+					sprintf(year,"0%d",idYear[m]);
+				}
+				else{
+					sprintf(year,"%d",idYear[m]);
+				}
+				if(idMonth[m] < 10){
+					sprintf(month,"0%d",idMonth[m]);
+				}
+				else{
+					sprintf(month,"%d",idMonth[m]);
+				}
+				if(idDay[m] < 10){
+					sprintf(day,"0%d",idDay[m]);
+				}
+				else{
+					sprintf(day,"%d",idDay[m]);
+				}
+				if(idHour[m] < 10){
+					sprintf(hour,"0%d",idHour[m]);
+				}
+				else{
+					sprintf(hour,"%d",idHour[m]);
+				}
+				if(idMinute[m] < 10){
+					sprintf(minute,"0%d",idMinute[m]);
+				}
+				else{
+					sprintf(minute,"%d",idMinute[m]);
+				}
+
+				
+				
+				sprintf(string1,"%s/%s/20%s   %s:%s",day,month,year,hour,minute);
 				
 				//bu variyanti yaz yoxla
 				/*
@@ -724,7 +772,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			}
 		//pageTextWriteFlagA = 0;
 		//}
-			
+		}
 			
 
 		
