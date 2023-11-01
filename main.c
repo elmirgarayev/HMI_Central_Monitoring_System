@@ -75,9 +75,12 @@ u8 statusOrder15[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	u8* statusOrder[]	=	{statusOrder1, statusOrder2, statusOrder3, statusOrder4, statusOrder5, statusOrder6, statusOrder7, statusOrder8, statusOrder9, statusOrder10, statusOrder11, statusOrder12, statusOrder13, statusOrder14, statusOrder15};
 																 
 u8 countTheChannels = 0;	
+u8 countTheSignals=0;
 u8 dynamicPageLimit = 0;
 u16 channelNumbers[15] = {10544, 8497, 16434, 9011, 9268, 9525, 24118, 9783, 10808, 10297, 16737, 16994, 17251, 17508, 17765};														 
 u8 alarmOnBefore[15][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable   ///
+u8 alarmOnBef[15][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable   ///
+
 																 ////// bu yuxardakinde yer azalsin deye duzelde bilerik
 u16 stationAlarmArray[100];
 															 
@@ -128,8 +131,10 @@ void main()
 	
 	u8 pageTextWriteFlag = 1;
 	u8 pageTextWriteFlagA = 1;
+	u8 pageTextWriteFlagAlarm = 1;
 	u8 pageState=0;
 	u8 pageStateA=0;
+	u8 pageStateAlarm=30;
 	u8 channelState=0;
 	u8 iLimit=0;
 	
@@ -150,7 +155,7 @@ void main()
 		
 	enum pageNumber{page1 , page2 , page3 , page4 , page5 , page6 , page7 , page8 , page9 , page10,}; //page nomreleri
 	
-	char *text_page[] = {"Page 1  ","Page 2  ","Page 3  ","Page 4  ","Page 5  ","Page 6  ","Page 7  ","Page 8  ","Page 9  ","Page 10 ","Page 11 ","Page 12 ","Page 13 "}; //pagelerin adlari
+	char *text_page[] = {"Page 1  ","Page 2  ","Page 3  ","Page 4  ","Page 5  ","Page 6  ","Page 7  ","Page 8  ","Page 9  ","Page 10 ","Page 11 ","Page 12 ","Page 13 ","Page 14 ","Page 15 ","Page 16 ","Page 17 ","Page 18 ","Page 19 ","Page 20 "}; //pagelerin adlari
 	
 	char *unit[] = {"    ","  C ","bar ","  % ","rpm "}; // unitlerin adlari
 	//char *status[] = {"     RUN","      OK","   ALARM","    HIGH","    STOP","Fade out","      SF","     LOW",}; // statuslarin adlari
@@ -255,7 +260,18 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 
 	
 	char string[10][50] = 0;
-		
+	
+	char stringA[10][20] = 0;
+	
+	int sayacc=0;
+	int sayacc2=0;
+	
+	
+	int alarmSayi=0;
+	int seyfeSayi=0;
+	int qaliqSayi=0;
+	int tezeSignalGeldi=0;
+	
 	u8 canReg[4];
 												 
 	u8 date[]={0x16,0x03,0x12,0x17,0x3b,0x20}; // tarix deyerleri
@@ -266,15 +282,17 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 
 
 	
-
+	
 	
 	u8 ok[2];
 	u8 channels[2];
 	u16 channelsSum=0;
 	u8 rightLeftPage[2];
 	u8 rightLeftPageA[2];
+	u8 rightLeftPageAlarm[2];
 	u8 pageLimit=0;  			// seyfe limitin belirleyir
 	u8 pageLimitA=0;  			// seyfe limitin belirleyir
+	u8 pageLimitAlarm=0;  			// seyfe limitin belirleyir
 	u8 pageLimitCounterA=0;  			// seyfe limitin belirleyir
 	u8 channelLimit=0; 		// son seyfede olan signal sayi
 	u8 i=0,j=0,alarmOrder=0;				//alarmOrder deyiskeni yuzdene alarmi surusduren counterdi
@@ -284,6 +302,12 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 	u8 testSend[] = {1,2};
 	u16 alarmStartEnd[2];
 	u8 alarmStartEnd8bit[4];
+	
+	u16 alarmLength = 200;
+	u16 alarmsOnList[200 + 1] = 0; //helelik 11 yoxlamaq ucun isleyenden sonra 201 ele.
+	//u16 siradaki=0;
+	u16 sayy=0;
+	u16 sayyy=0;
 	
 	T0_Init();						//定时器0初始化
 	//Baud rate:125K{0x3F,0x40,0x72,0x00},250K{0x1F,0x40,0x72,0x00},500K{0x0F,0x40,0x72,0x00},1M{0x07,0x40,0x72,0x00}
@@ -301,7 +325,6 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 	StartTimer(4,5000);
 	//Rtc_set_time(date);
 	
-
 	
 	while(1){
 		
@@ -529,7 +552,175 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			}
 		}
 		
+		///////////////////// bu hissede cixmis olan alarimlara arraya duzurem.////////////////////////////////////////////
+		for(countTheChannels = 0;countTheChannels < 15; countTheChannels++){	//kanallari axtarmaq ucun sayir
+				for(countTheSignals = 0; countTheSignals < textChannelsLengths[countTheChannels]; countTheSignals++){
+					if(alarmOn[countTheChannels][countTheSignals] == 1){
+						if(alarmOnBef[countTheChannels][countTheSignals] == 0){	//eger yeni olubsa alarm
+							alarmOnBef[countTheChannels][countTheSignals] = 1; //bunu 1 eleki ikinci defe yaznasin
+							alarmSayi++;
+							tezeSignalGeldi = 1;
+							for(sayy=alarmLength; sayy > 0; sayy--){
+								alarmsOnList[sayy] = alarmsOnList[sayy-1];
+							}
+							alarmsOnList[0] = textChannelsID[countTheChannels][countTheSignals];
+						}
+					}
+					else{
+						if(alarmOnBef[countTheChannels][countTheSignals] == 1){
+							for(sayy=0; sayy < alarmLength + 1; sayy++){
+								if(alarmsOnList[sayy] == textChannelsID[countTheChannels][countTheSignals]){
+									for(sayyy=sayy; sayyy < alarmLength; sayyy++){
+										alarmsOnList[sayyy] = alarmsOnList[sayyy + 1];
+									}
+								}
+							}
+							tezeSignalGeldi = 1;
+							alarmSayi--;
+						}
+						alarmOnBef[countTheChannels][countTheSignals] = 0; //bunu sifirlarki uje orda alarm yoxdu
+					}
+				}
+		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
+		
+		
+		read_dgus_vp(0x16CC,&rightLeftPageAlarm,1); //alarm seyfesindeki hansi page getmeli oldugunu burdan oxu
+		
+		//write_dgus_vp(0x16C8,text_page[pageStateAlarm],4);
+		
+		seyfeSayi = alarmSayi / 10;
+		qaliqSayi = alarmSayi % 10;
+		
+		if(rightLeftPageAlarm[1] > seyfeSayi){
+			rightLeftPageAlarm[1] = seyfeSayi;
+			write_dgus_vp(0x16CC,&rightLeftPageAlarm,1);
+			
+		}
+		
+		//write_dgus_vp(0x16C8,text_page[alarmSayi],4);
+		
+		if(rightLeftPageAlarm[1] != pageStateAlarm){ // eger sola yada saga basildisa alarm seyfesinde	
+			
+			pageStateAlarm = rightLeftPageAlarm[1];
+			
+			write_dgus_vp(0x16C8,text_page[pageStateAlarm],4); //burda hansi pagedeyikse onu yazdiririq
+			
+			
+			
+		for(sayacc2=pageStateAlarm*10; sayacc2 < pageStateAlarm*10 +10; sayacc2 ++){	//burda ise yazilmis idlerin adlarinin tex qarsiligin tapib yaziriq
+		for(mm =0; mm < 15; mm++){
+			for(mmm =0; mmm < textChannelsLengths[mm]; mmm++){
+				if(textChannelsID[mm][mmm] == alarmsOnList[sayacc2]){
+					write_dgus_vp(0x1628+12*(sayacc2 % 10),textChannels[mm][mmm],12);
+					
+					if(statusOrder[mm][mmm] == 0){
+						sprintf(stringA[sayacc2 % 10],status[1]);
+					}
+					else if(statusOrder[mm][mmm] == 1){
+						sprintf(stringA[sayacc2 % 10],status[0]);
+					}
+					else if(statusOrder[mm][mmm] == 2){
+						sprintf(stringA[sayacc2 % 10],status[3]);
+					}
+					else if(statusOrder[mm][mmm] == 3){
+						sprintf(stringA[sayacc2 % 10],status[2]);
+					}
+					else if(statusOrder[mm][mmm] == 4){
+						sprintf(stringA[sayacc2 % 10],status[5]);
+					}
+					else if(statusOrder[mm][mmm] == 5){
+						sprintf(stringA[sayacc2 % 10],status[4]);
+					}
+					write_dgus_vp(0x16A0 + (sayacc2 % 10)*4,stringA[sayacc2 % 10],4);
+				}
+			}
+		}
+	}
+		
+		for(sayacc =pageStateAlarm*10; sayacc < pageStateAlarm*10 + 10; sayacc++){	//burda id leri liste yaziriq
+			if(alarmsOnList[sayacc] >= 1000){
+			sprintf(stringA[sayacc % 10],"%d",alarmsOnList[sayacc]);
+			write_dgus_vp(0x1600 + (sayacc % 10)*4,stringA[sayacc % 10],4);
+			
+			}
+			else{
+			sprintf(stringA[sayacc % 10],"    ");
+			write_dgus_vp(0x1600 + (sayacc % 10)*4,stringA[sayacc % 10],4);
+				
+			sprintf(string1,"                  ");
+			write_dgus_vp(0x1628+12*(sayacc % 10),string1,12);
+				
+			sprintf(string1,"        ");
+			write_dgus_vp(0x16A0+4*(sayacc % 10),string1,4);
+			}
+
+		}
+			
+			
+			pageTextWriteFlagAlarm = 1;
+		}
+		
+		if(tezeSignalGeldi == 1){
+		for(sayacc2=pageStateAlarm*10; sayacc2 < pageStateAlarm*10 + 10; sayacc2 ++){	//burda ise yazilmis idlerin adlarinin tex qarsiligin tapib yaziriq
+		for(mm =0; mm < 15; mm++){
+			for(mmm =0; mmm < textChannelsLengths[mm]; mmm++){
+				if(textChannelsID[mm][mmm] == alarmsOnList[sayacc2]){
+					write_dgus_vp(0x1628+12*(sayacc2 % 10),textChannels[mm][mmm],12);
+					
+					if(statusOrder[mm][mmm] == 0){
+						sprintf(stringA[sayacc2 % 10],status[1]);
+					}
+					else if(statusOrder[mm][mmm] == 1){
+						sprintf(stringA[sayacc2 % 10],status[0]);
+					}
+					else if(statusOrder[mm][mmm] == 2){
+						sprintf(stringA[sayacc2 % 10],status[3]);
+					}
+					else if(statusOrder[mm][mmm] == 3){
+						sprintf(stringA[sayacc2 % 10],status[2]);
+					}
+					else if(statusOrder[mm][mmm] == 4){
+						sprintf(stringA[sayacc2 % 10],status[5]);
+					}
+					else if(statusOrder[mm][mmm] == 5){
+						sprintf(stringA[sayacc2 % 10],status[4]);
+					}
+					write_dgus_vp(0x16A0 + (sayacc2 % 10)*4,stringA[sayacc2 % 10],4);
+				}
+			}
+		}
+	}
+		
+		for(sayacc =pageStateAlarm*10; sayacc < pageStateAlarm*10 + 10; sayacc++){	//burda id leri liste yaziriq
+			if(alarmsOnList[sayacc] >= 1000){
+			sprintf(stringA[sayacc % 10],"%d",alarmsOnList[sayacc]);
+			write_dgus_vp(0x1600 + (sayacc % 10)*4,stringA[sayacc % 10],4);
+			}
+			else{
+			sprintf(stringA[sayacc % 10],"    ");
+			write_dgus_vp(0x1600 + (sayacc % 10)*4,stringA[sayacc % 10],4);
+				
+			sprintf(string1,"                  ");
+			write_dgus_vp(0x1628+12*(sayacc % 10),string1,12);
+				
+			sprintf(string1,"        ");
+			write_dgus_vp(0x16A0+4*(sayacc % 10),string1,4);
+			}
+		}
+		
+		tezeSignalGeldi = 0;
+		}
+		
+		
+		
+
+		
+
+		
+		
+
 		
 		read_dgus_vp(0x1016,&rightLeftPageA,1);
 
