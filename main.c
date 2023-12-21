@@ -30,11 +30,12 @@ u16 msbEsbAlarm[]				=	{2097, 2098, 2099, 2100, 2101, 2102, 2103, 2104, 2105, 21
 u16 wtdHatchesAlarm[]		=	{2037, 2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045, 2046};
 u16 tanksBilgesAlarm[]	=	{3066, 3067, 3068, 3069, 3070, 3071, 3072, 3073, 3074, 3079, 3080, 3081, 3082, 3083, 3084, 3085, 3086, 3087, 3088, 3005, 3006, 3007, 3008, 3009, 3010, 3011, 3012, 3013, 3014, 3015, 3016, 3017, 3018, 3019, 3020, 3021, 3022, 3023, 3024, 3025, 3026, 3027, 3028, 3029, 3030, 3031, 3032, 3033, 3034, 3035, 3036, 3037, 3038, 3039, 3040, 3041};
 u16 machnineryAlarm[]		=	{1061, 1062, 1063, 1064, 1001, 2065, 2049, 2051, 3065, 3094, 3095, 3096, 3097, 3042, 3098, 3099, 3100, 3101, 3102, 3103, 3104, 3105, 3108, 3110, 3111, 3112, 3053, 3054, 3055, 3056, 3057, 3058, 3059, 3060, 3061, 3062, 3063, 3064, 3001, 3002, 3003, 4065, 4066, 4067, 4068, 4069, 4070, 4071, 4074, 4075, 4076, 4077, 4078, 4079, 4006, 4008, 4010, 4012, 4082, 4083, 4084, 4085, 4014, 4016, 4018, 4020, 4022, 4024};			
+u16 others[]  					=	{1113, 1114, 1116, 1115, 2113, 2115, 2116, 2117, 3113, 4113, 4114};
 
 //ardicil duzulmesi
-u16* textChannelsID[]	=	{meShutdownPs, meSlowdownPs, meAlarmPs, meShutdownSb, meSlowdownSb, meAlarmSb, cppGbAlarmPs, cppGbAlarmSb, generatorsAlarm, thrustersAlarms, steeringGearAlarm, msbEsbAlarm, wtdHatchesAlarm, tanksBilgesAlarm, machnineryAlarm};
+u16* textChannelsID[]	=	{meShutdownPs, meSlowdownPs, meAlarmPs, meShutdownSb, meSlowdownSb, meAlarmSb, cppGbAlarmPs, cppGbAlarmSb, generatorsAlarm, thrustersAlarms, steeringGearAlarm, msbEsbAlarm, wtdHatchesAlarm, tanksBilgesAlarm, machnineryAlarm, others};
 
-size_t textChannelsLengths[] = {sizeof(meShutdownPs) / sizeof(u16), sizeof(meSlowdownPs) / sizeof(u16), sizeof(meAlarmPs) / sizeof(u16), sizeof(meShutdownSb) / sizeof(u16), sizeof(meSlowdownSb) / sizeof(u16), sizeof(meAlarmSb) / sizeof(u16), sizeof(cppGbAlarmPs) / sizeof(u16), sizeof(cppGbAlarmSb) / sizeof(u16), sizeof(generatorsAlarm) / sizeof(u16), sizeof(thrustersAlarms) / sizeof(u16), sizeof(steeringGearAlarm) / sizeof(u16), sizeof(msbEsbAlarm) / sizeof(u16), sizeof(wtdHatchesAlarm) / sizeof(u16), sizeof(tanksBilgesAlarm) / sizeof(u16), sizeof(machnineryAlarm) / sizeof(u16)};
+size_t textChannelsLengths[] = {sizeof(meShutdownPs) / sizeof(u16), sizeof(meSlowdownPs) / sizeof(u16), sizeof(meAlarmPs) / sizeof(u16), sizeof(meShutdownSb) / sizeof(u16), sizeof(meSlowdownSb) / sizeof(u16), sizeof(meAlarmSb) / sizeof(u16), sizeof(cppGbAlarmPs) / sizeof(u16), sizeof(cppGbAlarmSb) / sizeof(u16), sizeof(generatorsAlarm) / sizeof(u16), sizeof(thrustersAlarms) / sizeof(u16), sizeof(steeringGearAlarm) / sizeof(u16), sizeof(msbEsbAlarm) / sizeof(u16), sizeof(wtdHatchesAlarm) / sizeof(u16), sizeof(tanksBilgesAlarm) / sizeof(u16), sizeof(machnineryAlarm) / sizeof(u16), sizeof(others) / sizeof(u16)};
 // usteki bunun yerine kececek
 //	u8 textChannelsLenght[] = {4, 2, 14, 4, 2, 14, 13, 13, 32, 27, 17, 14, 10, 56, 68};
 
@@ -53,8 +54,9 @@ u8 analogIDsOrder12[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //msbEsbAla
 u8 analogIDsOrder13[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //wtdHatchesAlarm
 u8 analogIDsOrder14[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}; //tanksBilgesAlarm
 u8 analogIDsOrder15[] = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1}; //machnineryAlarm
+u8 analogIDsOrder16[]  = 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //others
 	
-	u8* analogIDsOrder[]	=	{analogIDsOrder1, analogIDsOrder2, analogIDsOrder3, analogIDsOrder4, analogIDsOrder5, analogIDsOrder6, analogIDsOrder7, analogIDsOrder8, analogIDsOrder9, analogIDsOrder10, analogIDsOrder11, analogIDsOrder12, analogIDsOrder13, analogIDsOrder14, analogIDsOrder15};
+	u8* analogIDsOrder[]	=	{analogIDsOrder1, analogIDsOrder2, analogIDsOrder3, analogIDsOrder4, analogIDsOrder5, analogIDsOrder6, analogIDsOrder7, analogIDsOrder8, analogIDsOrder9, analogIDsOrder10, analogIDsOrder11, analogIDsOrder12, analogIDsOrder13, analogIDsOrder14, analogIDsOrder15, analogIDsOrder16};
 	
 u8 statusOrder1[]   = 		{0, 0, 0, 3}; //ME Shutdown - PS
 u8 statusOrder2[]   = 		{0, 0}; //meSlowdownPs
@@ -64,22 +66,23 @@ u8 statusOrder5[]   = 		{0, 0}; //meSlowdownSb
 u8 statusOrder6[]   = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //meAlarmSb
 u8 statusOrder7[]   = 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}; //cppGbAlarmPs
 u8 statusOrder8[]   = 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0}; //cppGbAlarmSb
-u8 statusOrder9[]		= 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3}; //generatorsAlarm
+u8 statusOrder9[]		= 		{3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2}; //generatorsAlarm
 u8 statusOrder10[]	= 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0}; //thrustersAlarms
 u8 statusOrder11[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //steeringGearAlarm
 u8 statusOrder12[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //msbEsbAlarm
 u8 statusOrder13[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //wtdHatchesAlarm
 u8 statusOrder14[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; //tanksBilgesAlarm
-u8 statusOrder15[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 4, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0}; //machnineryAlarm			
+u8 statusOrder15[]  = 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 2, 0, 2, 0, 0, 0, 3, 0, 2, 0, 0, 0, 0, 4, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0}; //machnineryAlarm			
+u8 statusOrder16[]  = 		{0, 0, 8, 8, 0, 8, 8, 8, 0, 0, 0}; //others
 
-	u8* statusOrder[]	=	{statusOrder1, statusOrder2, statusOrder3, statusOrder4, statusOrder5, statusOrder6, statusOrder7, statusOrder8, statusOrder9, statusOrder10, statusOrder11, statusOrder12, statusOrder13, statusOrder14, statusOrder15};
-																 
-u8 countTheChannels = 0;	
+	u8* statusOrder[]	=	{statusOrder1, statusOrder2, statusOrder3, statusOrder4, statusOrder5, statusOrder6, statusOrder7, statusOrder8, statusOrder9, statusOrder10, statusOrder11, statusOrder12, statusOrder13, statusOrder14, statusOrder15, statusOrder16};
+
+u8 countTheChannels = 0;
 u8 countTheSignals=0;
 u8 dynamicPageLimit = 0;
-u16 channelNumbers[15] = {10544, 8497, 16434, 9011, 9268, 9525, 24118, 9783, 10808, 10297, 16737, 16994, 17251, 17508, 17765};														 
-u8 alarmOnBefore[15][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable   ///
-u8 alarmOnBef[15][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable   ///
+u16 channelNumbers[16] = {10544, 8497, 16434, 9011, 9268, 9525, 24118, 9783, 10808, 10297, 16737, 16994, 17251, 17508, 17765, 18022};												 
+u8 alarmOnBefore[16][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable   ///
+u8 alarmOnBef[16][68] = 0; //siqnalin evveliki halina baxmaq ucun olan verable   ///
 
 																 ////// bu yuxardakinde yer azalsin deye duzelde bilerik
 u16 stationAlarmArray[100];
@@ -151,7 +154,7 @@ void main()
 	
 	
 	enum channel_state{meShutdownPs,meSlowdownPs,meAlarmPs,meShutdownSb,meSlowdownSb,meAlarmSb,cppGbAlarmPs,cppGbAlarmSb,generatorsAlarm,
-										 thrustersAlarms,steeringGearAlarm,msbEsbAlarm,wtdHatchesAlarm,tanksBilgesAlarm,machnineryAlarm,Others,};
+										 thrustersAlarms,steeringGearAlarm,msbEsbAlarm,wtdHatchesAlarm,tanksBilgesAlarm,machnineryAlarm,others,};
 		
 	enum pageNumber{page1 , page2 , page3 , page4 , page5 , page6 , page7 , page8 , page9 , page10,}; //page nomreleri
 	
@@ -159,7 +162,7 @@ void main()
 	
 	char *unit[] = {"    ","  C ","bar ","  % ","rpm "}; // unitlerin adlari
 	//char *status[] = {"     RUN","      OK","   ALARM","    HIGH","    STOP","Fade out","      SF","     LOW",}; // statuslarin adlari
-	char *status[] = {"      OK","   ALARM","    STOP","     RUN","     LOW","    HIGH","Fade out","      SF",}; // statuslarin adlari
+	char *status[] = {"      OK","   ALARM","    STOP","     RUN","     LOW","    HIGH","Fade out","      SF", "     OFF", "      ON"}; // statuslarin adlari
 	char str[70][30] = 0;
 
 	char empty[] = {"     "};
@@ -187,9 +190,9 @@ void main()
 															 "GB L.O.P Low          PS","GB L.O.P Low Trip     PS","CPP #1 Pump Run       PS","CPP #2 Pump Run       PS","GB L.O Temp.Hi        PS"};
 	const char *textGroup8[]	=	{"CPP Pump Auto Start   SB","CPP Hyd.Oil Temp.Hi   SB","CPP S.Tube Gra.Tk.Lo  SB","CPP S.Tube Cir.Tk.Lo  SB","CPP S.Tube Br.Tmp Hi  SB","CPP Hyd.Oil Prs.Low   SB","CPP Hyd.Oil Prs.Hi    SB","GB L.O.P Low SLD      SB",
 															 "GB L.O.P Low          SB","GB L.O.P Low Trip     SB","CPP #1 Pump Run       SB","CPP #2 Pump Run       SB","GB L.O Temp.Hi        SB"};
-	const char *textGroup9[]	=	{"DG Running            PS","DG Overspeed Trip     PS","DG L.O.P Low Trip     PS","DG F.W Temp.Hi Trip   PS","DG Emerg.Stop         PS","DG Fail To Start      PS","DG F.O Leakage        PS","DG Water Lvl.Low      PS",
+	const char *textGroup9[]	=	{"DG Running            PS","DG Overspeed Trip     PS","DG L.O.P Low Trip     PS","DG F.W Temp.Hi Trip   PS","DG Emerg.Stop         PS","DG Fail To Start      PS","DG F.O Leakage        PS","General Alarm         PS", //DG Water Lvl.Low      PS bu signalin adin deyiserek General Alarm         PS etdik.
 															 "DG L.O Temp.Hi        PS","DG L.O.P Low          PS","DG Jack Water Prs. Lo PS","DG F.O Press.Low      PS","DG F.W Temp.Hi        PS","DG Exh.Gas Temp.Hi    PS","DG Power Failure      PS","DG Running            SB",
-															 "DG Overspeed Trip     SB","DG L.O.P Low Trip     SB","DG F.W Temp.Hi Trip   SB","DG Emerg.Stop         SB","DG Fail To Start      SB","DG F.O Leakage        SB","DG Water Lvl.Low      SB","DG L.O Temp.Hi        SB",
+															 "DG Overspeed Trip     SB","DG L.O.P Low Trip     SB","DG F.W Temp.Hi Trip   SB","DG Emerg.Stop         SB","DG Fail To Start      SB","DG F.O Leakage        SB","General Alarm         SB","DG L.O Temp.Hi        SB", //DG Water Lvl.Low      SB bu signalin adin deyiserek General Alarm         SB etdik.
 															 "DG L.O.P Low          SB","DG Jack Water Prs. Lo SB","DG F.O Press.Low      SB","DG F.W Temp.Hi        SB","DG Exh.Gas Temp.Hi    SB","DG Power Failure      SB","E.Gen Common Fault      ","E.Gen Running           "};
 	const char *textGroup10[]	=	{"BT Analog Station Fail  ","BT Ctrl.Source Pow. Fail","BT Main Source Pow. Fail","BT Hyd Oil Lvl.Low      ","BT Hyd Oil Temp.Too Hi  ","BT Hyd.Oil Filter Clog. ","BT Min.Hyd.Oil.Prs.Low  ","BT Hyd.Motor Overload   ",
 															 "ST Hyd Overload         ","ST Analog Station Fail  ","ST Ctrl.Source Pow. Fail","ST Main Source Pow. Fail","ST Oil Lvl.Low          ","ST Overcurrent          ","ST Hyd.Oil Filter Clog. ","ST Min.Hyd.Oil Prs.Low  ",
@@ -218,10 +221,12 @@ void main()
 															 "#1 ER Vent.Fan Trip     ","#2 ER Vent.Fan Trip     ","#1 Ref.Comp.Run         ","#1 Ref.Comp. Abnormal   ","#2 Ref.Comp.Run         ","#2 Ref.Comp. Abnormal   ","Sh.Gen #1 Wind. Tmp.H PS","Sh.Gen #2 Wind. Tmp.H PS",
 															 "Sh.Gen #3 Wind. Tmp.H PS","Sh.Gen F.Bear. Tmp.H  PS","#1 M.Air Compressor Run ","#1 M.Air Comp.Com. Fault","#2 M.Air Compressor Run ","#2 M.Air Comp.Com. Fault","Sh.Gen R.Bear.Tmp.H   PS","Sh.Gen #1 Wind. Tmp.H SB",
 															 "Sh.Gen #2 Wind. Tmp.H SB","Sh.Gen #3 Wind. Tmp.H SB","Sh.Gen F.Bear.Tmp.H   SB","Sh.Gen R.Bear.Tmp.H   SB"};
+	const char *textGroup16[]	=	{"DG Group Alarm        PS","ST Group Alarm          ","ME Inhibit            PS", "DG Inhibit           PS"," DG Group Alarm       SB"," DG Inhibit           SB"," ME Inhibit           SB"," E.Gen Inhibit          ",
+															 " E.Gen Group Alarm      "," Sh.Gen PS Gp.Alarm     "," Sh.Gen SB Gp.Alarm     "};
 	
-const char **textChannels[]	=	{textGroup1, textGroup2, textGroup3, textGroup4, textGroup5, textGroup6, textGroup7, textGroup8, textGroup9, textGroup10, textGroup11, textGroup12, textGroup13, textGroup14, textGroup15};
+const char **textChannels[]	=	{textGroup1, textGroup2, textGroup3, textGroup4, textGroup5, textGroup6, textGroup7, textGroup8, textGroup9, textGroup10, textGroup11, textGroup12, textGroup13, textGroup14, textGroup15, textGroup16};
 
-size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGroup2) / sizeof(textGroup2[0]), sizeof(textGroup3) / sizeof(textGroup3[0]), sizeof(textGroup4) / sizeof(textGroup4[0]), sizeof(textGroup5) / sizeof(textGroup5[0]), sizeof(textGroup6) / sizeof(textGroup6[0]), sizeof(textGroup7) / sizeof(textGroup7[0]), sizeof(textGroup8) / sizeof(textGroup8[0]), sizeof(textGroup9) / sizeof(textGroup9[0]), sizeof(textGroup10) / sizeof(textGroup10[0]), sizeof(textGroup11) / sizeof(textGroup11[0]), sizeof(textGroup12) / sizeof(textGroup12[0]), sizeof(textGroup13) / sizeof(textGroup13[0]), sizeof(textGroup14) / sizeof(textGroup14[0]), sizeof(textGroup15) / sizeof(textGroup15[0])};
+size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGroup2) / sizeof(textGroup2[0]), sizeof(textGroup3) / sizeof(textGroup3[0]), sizeof(textGroup4) / sizeof(textGroup4[0]), sizeof(textGroup5) / sizeof(textGroup5[0]), sizeof(textGroup6) / sizeof(textGroup6[0]), sizeof(textGroup7) / sizeof(textGroup7[0]), sizeof(textGroup8) / sizeof(textGroup8[0]), sizeof(textGroup9) / sizeof(textGroup9[0]), sizeof(textGroup10) / sizeof(textGroup10[0]), sizeof(textGroup11) / sizeof(textGroup11[0]), sizeof(textGroup12) / sizeof(textGroup12[0]), sizeof(textGroup13) / sizeof(textGroup13[0]), sizeof(textGroup14) / sizeof(textGroup14[0]), sizeof(textGroup15) / sizeof(textGroup15[0]), sizeof(textGroup16) / sizeof(textGroup16[0])};
 		//ME Shutdown - PS				 	 //OK                                                                      
 		//ME Slowdown - PS				 	 //OK
 		//ME Alarm - PS		         	 //OK
@@ -365,7 +370,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 		
 		channelsSum = ((u16)channels[1]) + ((u16)channels[0] << 8);   // onlari normal reqem haklina getir
 			
-		for(countTheChannels = 0;countTheChannels < 15; countTheChannels++){	//kanallari say
+		for(countTheChannels = 0;countTheChannels < 16; countTheChannels++){	//kanallari say
 			if(channelsSum == channelNumbers[countTheChannels]) //kanal knopkasina a basildi yoxsa yox ona baxir
 			{
 				*text = *textChannels[countTheChannels];
@@ -460,7 +465,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			pageTextWriteFlag = 0;
 		}
 			
-		for(countTheChannels = 0;countTheChannels < 15; countTheChannels++){	//kanallari axtarmaq ucun sayir
+		for(countTheChannels = 0;countTheChannels < 16; countTheChannels++){	//kanallari axtarmaq ucun sayir
 			if(channelState == countTheChannels){	//hansi kanalda oldugun axtarir
 				if((rightLeftPage[1] == pageLimit) && (channelLimit != 0)){  //son seyfededise ve son seyfede kanal varsa
 					dynamicPageLimit = channelLimit;
@@ -543,6 +548,22 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 								write_dgus_vp((0x10A8+i*4),status[0]+45,4);	// HIGH
 							}
 						}
+						else if(statusOrder[countTheChannels][i+pageState*8]==8){
+							if(alarmOn[channelState][i+pageState*8] == 1){ //eger alarm olubsa
+								write_dgus_vp((0x10A8+i*4),status[0]+81,4);	// ON
+							}
+							else{
+								write_dgus_vp((0x10A8+i*4),status[0]+72,4);	// OFF
+							}
+						}
+						else if(statusOrder[countTheChannels][i+pageState*8]==9){
+							if(alarmOn[channelState][i+pageState*8] == 1){ //eger alarm olubsa
+								write_dgus_vp((0x10A8+i*4),status[0]+72,4);	// ON
+							}
+							else{
+								write_dgus_vp((0x10A8+i*4),status[0]+81,4);	// OFF
+							}
+						}
 					}
 					else
 					{
@@ -553,7 +574,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 		}
 		
 		///////////////////// bu hissede cixmis olan alarimlara arraya duzurem.////////////////////////////////////////////
-		for(countTheChannels = 0;countTheChannels < 15; countTheChannels++){	//kanallari axtarmaq ucun sayir
+		for(countTheChannels = 0;countTheChannels < 16; countTheChannels++){	//kanallari axtarmaq ucun sayir
 				for(countTheSignals = 0; countTheSignals < textChannelsLengths[countTheChannels]; countTheSignals++){
 					if(alarmOn[countTheChannels][countTheSignals] == 1){
 						if(alarmOnBef[countTheChannels][countTheSignals] == 0){	//eger yeni olubsa alarm
@@ -610,7 +631,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 			
 			
 		for(sayacc2=pageStateAlarm*10; sayacc2 < pageStateAlarm*10 +10; sayacc2 ++){	//burda ise yazilmis idlerin adlarinin tex qarsiligin tapib yaziriq
-		for(mm =0; mm < 15; mm++){
+		for(mm =0; mm < 16; mm++){
 			for(mmm =0; mmm < textChannelsLengths[mm]; mmm++){
 				if(textChannelsID[mm][mmm] == alarmsOnList[sayacc2]){
 					write_dgus_vp(0x1628+12*(sayacc2 % 10),textChannels[mm][mmm],12);
@@ -633,6 +654,14 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 					else if(statusOrder[mm][mmm] == 5){
 						sprintf(stringA[sayacc2 % 10],status[4]);
 					}
+					/*
+					else if(statusOrder[mm][mmm] == 8){
+						sprintf(stringA[sayacc2 % 10],status[9]);
+					}
+					else if(statusOrder[mm][mmm] == 9){
+						sprintf(stringA[sayacc2 % 10],status[8]);
+					}
+					*/
 					write_dgus_vp(0x16A0 + (sayacc2 % 10)*4,stringA[sayacc2 % 10],4);
 				}
 			}
@@ -664,7 +693,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 		
 		if(tezeSignalGeldi == 1){
 		for(sayacc2=pageStateAlarm*10; sayacc2 < pageStateAlarm*10 + 10; sayacc2 ++){	//burda ise yazilmis idlerin adlarinin tex qarsiligin tapib yaziriq
-		for(mm =0; mm < 15; mm++){
+		for(mm =0; mm < 16; mm++){
 			for(mmm =0; mmm < textChannelsLengths[mm]; mmm++){
 				if(textChannelsID[mm][mmm] == alarmsOnList[sayacc2]){
 					write_dgus_vp(0x1628+12*(sayacc2 % 10),textChannels[mm][mmm],12);
@@ -926,7 +955,7 @@ size_t	textSizes[]	=	{sizeof(textGroup1) / sizeof(textGroup1[0]), sizeof(textGro
 				
 					write_dgus_vp(0x1500+18*m,string1,9);
 					
-					for(mm =0; mm < 15; mm++){
+					for(mm =0; mm < 16; mm++){
 						for(mmm =0; mmm < textChannelsLengths[mm]; mmm++){
 							if(textChannelsID[mm][mmm] == idNumber[m]){
 								write_dgus_vp(0x1339+12*m,textChannels[mm][mmm],12);
